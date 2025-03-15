@@ -8,6 +8,8 @@ The basis of the idea is a mechanic where you point and click to place a bomb on
 ### /------------/
 #### Parker (Silicant) was here
 For my particle simulation, I want to try to make a gaseous particle. It would look somewhat similar to gas particles in Noita, with its main behavior being to float up. The particles would stop once they had nowhere to move up, like if they hit a solid ceiling.
+
+I will be maintaining the Cell class, and likely assisting with anything else that comes up in the project as the Cell class is quite simple. 
 ### /------------/
 #### Nevan (Nevan-Sprinxt) here
 Milo's idea of an explosion with an aftereffect of environmental destruction resonates with the possibilities of either flames, sparks, particle explosions and other effects that imbue a theme of destruction. I quite like the **Chain Reaction** concept of sowing destruction to the background. More chaotic particle movement seems fun to try.
