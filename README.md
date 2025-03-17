@@ -23,8 +23,11 @@ I will be doing the particle graphics class and its functionality. I'm free to h
 ### /------------/
 
 Parker will be responsible for the creation and testing of the Cell.h file.
+
 Nevan will be responsible for the creation and testing of the Particle.h file.
+
 Ishan will be responsible for the creation and testing of the Graphics.h file.
+
 Milo will be responsible for the creation and testing of the System.h file.
 
 ### /------------/
