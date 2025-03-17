@@ -1,6 +1,7 @@
 # clark-team-won
 
-
+### /----------------------/
+**PROJECT MILESTONE #0**
 ### /----------------------/
 #### Milo (hilomilo/neonpunch) was here
 
@@ -22,6 +23,8 @@ Will be adding the Particle class, which will emulate for the bit bomb possible 
 For my particle simulation, I want to do fireworks. Basically, there will be a mechanic where you click the screen and a firework launches up the screen and then explodes with an after effect. 
 
 I will be doing the particle graphics class and its functionality. I'm free to help out with the other classes as well. 
+### /----------------------/
+**PROJECT MILESTONE #1**
 ### /----------------------/
 
 Parker will be responsible for the creation and testing of the Cell.h file.
