@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
+
 class gc { //graphics class
 	string color = "";
   public:

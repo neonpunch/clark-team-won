@@ -1,6 +1,6 @@
 #include <ostream>
 #include "System.h"
-#include "Cell.h"
+//#include "Cell.h"
 #include "Particle.h"
 #include "Graphics.h"
 using namespace std;
@@ -10,16 +10,14 @@ int main () {
 
 	s.testSystem();
 
-	gc Graphics;
-
-	Graphics.testinggc();
+	cout << testinggc() << endl;
 
 	Particle p;
 
 	p.testParticle();
 
-	Cell c;
+	//Cell c;
 
-	c.CellTester();
+	//c.CellTester();
 
 }
