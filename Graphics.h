@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 using namespace std;
@@ -28,9 +29,9 @@ class gc { //graphics class
 		return 0; //stub
 	}
 };
-string testinggc() { //test to make sure everthing works
+inline string testinggc() { //test to make sure everthing works
 	bool result = true;
-	string p = "pass";
+	string p = "Graphics.h passed all tests!";
 	gc test("red");
 	if (test.get_color() != "red") {
 		result = false;
@@ -52,37 +53,8 @@ string testinggc() { //test to make sure everthing works
 		result = false;
 	}
 	if (result != false) {
-		p = "pass";
+		p = "Graphics.h passed all tests!";
 	}
 	return p;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

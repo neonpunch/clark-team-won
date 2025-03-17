@@ -1,4 +1,4 @@
-//#include "Color.h"
+#pragma once
 #include <iostream>
 #include <numbers>
 #include <cmath>
@@ -57,16 +57,11 @@ class Particle{
 				if (p.get_lifetime() != 90) testsPassed = false;
 
 				if (testsPassed){
-					cout << "All tests passed.\n";
+					cout << "Particle.h passed all tests!\n";
 				} else {
 					cout << "Some tests failed.\n";
 				}
 
 			}
 
-
-
-
-
 		};
-

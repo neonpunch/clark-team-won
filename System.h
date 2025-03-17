@@ -1,6 +1,6 @@
-//#include "Particle.h"
+#include "Particle.h"
 #include "Cell.h"
-//#include "Graphics.h"
+#include "Graphics.h"
 #include "/public/colors.h"
 using namespace std;
 
@@ -45,20 +45,20 @@ class System {
 		return partCount;
 	}
 
-	//void add(Particle p) {
+	void add(Particle p) {
 
-	//	return;
-	//}
+		return;
+	}
 
 	int numParticles() {
 
 		return 0;
 	}
 
-	//void drawParticles(Graphics g) {
+	void drawParticles(gc g) {
 
-	//	return;
-	//}
+		return;
+	}
 
 	void moveParticles() {
 
@@ -67,30 +67,27 @@ class System {
 
 	void testSystem() {
 		System s;
+		bool passed = true;
 
-		if (s.get_head() == nullptr) {
-			cout << "Test Passed!" << endl;
-		} else {
+		if (s.get_head() != nullptr) {
 			cout << "Head bad" << endl;
-		}
+			passed = false;
+		} 
 
-		if (s.get_tail() == nullptr) {
-			cout << "Test Passed!" << endl;
-		} else {
+		if (s.get_tail() != nullptr) {
 			cout << "Tail bad" << endl;
+			passed = false;
 		}
 
-		if (s.get_partCount() == 0) {
-			cout << "Test Passed!" << endl;
-		} else {
+		if (s.get_partCount() != 0) {
 			cout << "PartCount bad" << endl;
+			passed = false;
 		} 
 		
 		s.set_partCount(666);
 		if (s.get_partCount() != 666) {
 			cout << "Set or Get PartCount Bad Dumb Bitch" << endl;
-		} else {
-			cout << "Test Passed!" << endl;
+			passed = false;
 		}
 
 		Cell *a = new Cell("a");
@@ -98,11 +95,16 @@ class System {
 		s.set_tail(a);
 		if (s.get_head()->particle != "a" or s.get_tail()->particle != "a") {
 		 	cout << "Set Head or Set Tail or Get Head or Get Tail is Bad" << endl;
-		} else {
-			cout << "Test Passed!" << endl;
+			passed = false;
 		}
 
 		delete a;
+
+		if (passed) {
+			cout << "System.h passed all tests!" << endl;
+		} else {
+			cout << "Gappy student, huh?" << endl;
+		}
 	}
 		
 };
