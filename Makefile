@@ -1,8 +1,8 @@
 a.out: main.o Cell.h Particle.h Graphics.h System.h
-	g++ -o a.out main.o
+	g++ -fsanitize=address main.o
 
 main.o: main.cc Cell.h Particle.h Graphics.h System.h
-	g++ -c main.cc
+	g++ -c -fsanitize=address main.cc
 
 clean:
 	rm -f a.out *.o core
