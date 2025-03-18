@@ -9,11 +9,15 @@ public:
     Cell* prev;
     Cell* next;
 
-    Cell(string newString = "New_node", Cell* newPrev = nullptr, Cell* newNext = nullptr) {
+    Cell(const string &newString = "New_node", Cell* newPrev = nullptr, Cell* newNext = nullptr) {
         particle = newString;
         prev = newPrev;
         next = newNext;
     }
+
+	void Add(const string &newParticle) {
+		next = new Cell(newParticle, this, nullptr);	
+	}
 };
 	string CellTester() {
         Cell* firstNode = new Cell("First node");
