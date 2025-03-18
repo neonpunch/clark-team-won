@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "/public/colors.h"
 using namespace std;
 
 class gc { //graphics class
@@ -19,8 +20,13 @@ class gc { //graphics class
 	double makerectangle() {
 		return 0; //stub
 	}
-	double makeline() {
-		return 0; //stub
+	void drawPoint(int row, int col, int r, int g, int b) {
+		resetcolor();
+		setbgcolor(r,g,b);
+		movecursor(col,row);
+		cout << " ";
+		cout.flush();
+		resetcolor();
 	}
 	double makepolygon() {
 		return 0; //stub
@@ -40,9 +46,9 @@ inline string testinggc() { //test to make sure everthing works
 	if (test.get_color() != "blue") {
 		result = false;
 	}
-	if (test.makeline() != 0) {
+/*	if (test.drawPoint() != 0) {
 		result = false;
-	}
+	} */
 	if (test.makeoval() != 0) {
 		result = false;
 	}
