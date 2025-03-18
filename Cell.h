@@ -14,7 +14,9 @@ public:
         prev = newPrev;
         next = newNext;
     }
-
+	
+	//The way this function works means to add a new cell you have to call Add() on the tail end of the list, 
+	//e.g. "tail->Add( new particle name/type here );"
 	void Add(const string &newParticle) {
 		next = new Cell(newParticle, this, nullptr);	
 	}
