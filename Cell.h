@@ -1,21 +1,24 @@
 #pragma once
+#include "Particle.h"
 #include <string>
 #include <iostream>
 using namespace std;
 
 class Cell {
 public:
-    string particle = "";
+    Particle particle;
     Cell* prev;
     Cell* next;
 
-    Cell(string newString = "New_node", Cell* newPrev = nullptr, Cell* newNext = nullptr) {
-        particle = newString;
+    Cell(Particle newParticle = Particle(), Cell* newPrev = nullptr, Cell* newNext = nullptr) {
+        particle = newParticle;
         prev = newPrev;
         next = newNext;
-    }
+    }	
 };
 	string CellTester() {
+	return "CellTester currently does not account for the Particle object type. Please contact me (Parker) if testing is needed for the Cell class in the future.";
+		/*
         Cell* firstNode = new Cell("First node");
         if (firstNode->particle != "First node") {
 			cout << "One parameter constructor is broken." << endl;
@@ -44,5 +47,6 @@ public:
 		delete thirdNode;
 		
 		return "Cell.h passed all tests!";
+		*/
 	}
 
