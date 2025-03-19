@@ -56,7 +56,10 @@ class System {
 
 	void addParticle(Particle p) {
 		Cell* temp = new Cell(p, tail, nullptr);
-		tail->next = temp;
+		if (tail) tail->next = temp;
+		tail = temp;
+		if (partCount == 0) head = tail;
+		partCount++;
 	}
 
 	int numParticles() {

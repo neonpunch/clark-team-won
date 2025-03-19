@@ -49,7 +49,7 @@ class Particle{
 			p.set_y(24.6);
 			p.set_dx(2.0);
 			p.set_dy(-1.0);
-			p.set_lifetime(90);
+			p.set_lifetime(180);
 
 			//  cout << "\nSetting.\n";
 			//  cout << "x: " << p.get_x() << ", y: " << p.get_y() << ", dx: " << p.get_dx() << ", dy: " << p.get_dy() << ", Lifetime: " << p.get_lifetime() << "\n";
@@ -85,16 +85,20 @@ class Particle{
 				y += dy;
 
 				if (x < 0) {
-					break;
+					x *= -1;
+					dx += -1;
 				}
 				if (y < 0) {
-					break;
+					y *= -1;
+					dy += -1;
 				}
 				if (x >= cols) {
-					break;
+					x = cols - (x - cols);
+					dx *= -1;
 				}
 				if (y >= rows) {
-					break;
+					y = rows - (y - rows);
+					dy *= -1;
 				}
 				dx += (rand() % 3) - 1;
 				dy += (rand() % 3) - 1; 
