@@ -4,10 +4,12 @@
 #include "/public/colors.h"
 using namespace std;
 
-class gc { //graphics class
+class Graphics { //graphics class
 	string color = "";
   public:
-	gc(string new_color) {  //constructor
+	Graphics() {}
+
+	Graphics(string new_color) {  //constructor
 		color = new_color;
 	}
 	string get_color() {  //getter
@@ -35,10 +37,10 @@ class gc { //graphics class
 		return 0; //stub
 	}
 };
-inline string testinggc() { //test to make sure everthing works
+inline string testGraphics() { //test to make sure everthing works
 	bool result = true;
 	string p = "Graphics.h passed all tests!";
-	gc test("red");
+	Graphics test("red");
 	if (test.get_color() != "red") {
 		result = false;
 	}
