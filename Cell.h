@@ -7,17 +7,42 @@ using namespace std;
 class Cell {
 public:
     Particle particle;
-    Cell* prev;
-    Cell* next;
+    Cell* prev = nullptr;
+    Cell* next = nullptr;
 
     Cell(Particle newParticle = Particle(), Cell* newPrev = nullptr, Cell* newNext = nullptr) {
         particle = newParticle;
         prev = newPrev;
         next = newNext;
-    }	
+    }
+
+	Cell *getNext() const {
+		return next;
+	}
+	
+	void setNext(Cell *newNext) {
+		next = newNext;
+	}
+
+	Cell *getPrev() const {
+		return prev;
+	}
+
+	void setPrev(Cell *newPrev) {
+		prev = newPrev;
+	}
+
+	Particle getParticle() const {
+		return particle;
+	}
+
+	void setParticle(Particle newParticle) {
+		particle = newParticle;
+	}
+
 };
-	string CellTester() {
-	return "CellTester currently does not account for the Particle object type. Please contact me (Parker) if testing is needed for the Cell class in the future.";
+	//string CellTester() {
+	//return "CellTester currently does not account for the Particle object type. Please contact me (Parker) if testing is needed for the Cell class in the future.";
 		/*
         Cell* firstNode = new Cell("First node");
         if (firstNode->particle != "First node") {
@@ -48,5 +73,5 @@ public:
 		
 		return "Cell.h passed all tests!";
 		*/
-	}
+	//}
 
