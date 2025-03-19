@@ -72,44 +72,44 @@ class Particle{
 			auto [rows,cols] = get_terminal_size();
 			rows--;
 			cols--;
-			p.x = rand() % cols;
-			p.y = rand() % rows;
-			p.dx = 1;
-			p.dy = 1;
-			p.lifetime = 1440;
+			x = rand() % cols;
+			y = rand() % rows;
+			dx = 1;
+			dy = 1;
+			lifetime = 1440;
 			string pSymbol = "*";
 			double FPS = 144.;
-
+			show_cursor(false);
 			for (int i = 0; i < lifetime; i++) {
-				p.x += p.dx;
-				p.y += p.dy;
+				x += dx;
+				y += dy;
 
-				if (p.x < 0) {
+				if (x < 0) {
 					break;
 				}
-				if (p.y < 0) {
+				if (y < 0) {
 					break;
 				}
-				if (p.x >= cols) {
+				if (x >= cols) {
 					break;
 				}
-				if (p.y >= rows) {
+				if (y >= rows) {
 					break;
 				}
-				p.dx += (rand() % 3) - 1;
-				p.dy += (rand() % 3) - 1; 
-				if (p.dx > 1.5) p.dx = 1.5;
-				if (p.dx < -1.5) p.dx = -1.5;
-				if (p.dy > 1.5) p.dy = 1.5;
-				if (p.dy < -1.5) p.dy = -1.5;
-				movecursor(p.y, p.x);
+				dx += (rand() % 3) - 1;
+				dy += (rand() % 3) - 1; 
+				if (dx > 1.5) dx = 1.5;
+				if (dx < -1.5) dx = -1.5;
+				if (dy > 1.5) dy = 1.5;
+				if (dy < -1.5) dy = -1.5;
+				movecursor(y, x);
 				// setbgcolor(,,);
 				// setcolor(,,);
 				cout << pSymbol;
 				cout.flush();
 				//reset.color();
 				usleep(1'000'000/FPS);
-				p.lifetime--;
+				lifetime--;
 				clearscreen();
 			}
 			show_cursor(true);
