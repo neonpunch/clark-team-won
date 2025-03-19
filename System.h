@@ -7,6 +7,7 @@ using namespace std;
 class System {
 	Cell *head = nullptr;
 	Cell *tail = nullptr;
+	Graphics g;
 	int scrnWidth = 0;
 	int scrnHeight = 0;
 	int partCount = 0;
@@ -53,10 +54,9 @@ class System {
 		return partCount;
 	}
 
-	void add(Particle p) {
+	void addParticle(Particle p) {
 		Cell* temp = new Cell(p, tail, nullptr);
 		tail->next = temp;
-		tail = temp;
 	}
 
 	int numParticles() {
@@ -64,6 +64,14 @@ class System {
 		return 0;
 	}
 
+	void sysUpdate() {
+		for (Cell *currNode = head; currNode; currNode = currNode->getNext()) {
+			currNode->particle.Physics();
+			g.drawPoint(20, 20, 49, 23, 92);
+		}
+	}
+			
+	/*
 	void drawParticles(gc g) {
 
 		return;
@@ -73,7 +81,7 @@ class System {
 
 		return;
 	}
-
+	*/
 	void testSystem() {
 		System s;
 		bool passed = true;
@@ -121,7 +129,6 @@ class System {
 		} else {
 			cout << "Gappy student, huh?" << endl;
 		}
-	}
-		
+	}	
 };
 
