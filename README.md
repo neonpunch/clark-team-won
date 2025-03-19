@@ -33,3 +33,15 @@ Ishan will be responsible for the creation and testing of the Graphics.h file.
 Milo will be responsible for the creation and testing of the System.h file.
 
 ### /----------------------/
+**PROJECT MILESTONE #2**
+### /----------------------/
+
+Parker is responsible for the deconstructor and addParticle() function in System.h.
+
+Nevan is responsible for creating the Physics() function in Particle.h.
+
+Ishan is responsible for creating the drawPoint() function in Graphics.h.
+
+Milo is responsible for the Makefile. Also responsible for looping over the linked list and calling drawPoint() and Physics() in System.h.
+
+### /----------------------/
