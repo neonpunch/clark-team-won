@@ -6,14 +6,11 @@
 using namespace std;
 
 int main () {
+	Particle p;	
 	System s;
-	s.testSystem();
+	s.addParticle(p);
 
-	cout << testinggc() << endl;
-
-	Particle p;
-	p.testParticle();
+	s.sysUpdate();
 	
-	cout << CellTester() << endl;
-
+	return 1;	
 }
