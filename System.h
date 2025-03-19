@@ -21,6 +21,14 @@ class System {
 		scrnHeight = ROWS;
 	}
 
+	~System() {
+		for (Cell *temp = head; temp; ) {
+			Cell *temp2 = temp;
+			temp = temp->next;
+			delete temp2;
+		}
+	}
+
 	void set_head(Cell *new_head) {
 		head = new_head;
 	}
@@ -46,8 +54,9 @@ class System {
 	}
 
 	void add(Particle p) {
-
-		return;
+		Cell* temp = new Cell(p, tail, nullptr);
+		tail->next = temp;
+		tail = temp;
 	}
 
 	int numParticles() {
@@ -89,7 +98,13 @@ class System {
 			cout << "Set or Get PartCount Bad Dumb Bitch" << endl;
 			passed = false;
 		}
-
+		
+		cout << "Check the test code if you see this message" << endl;
+		/* NOTICE
+		 * This test will not work until we have operators to compare Particle objects, as the Cell object now holds 
+		 * Particles instead of a string. Until then, this part of the test should be left commented out.
+		 * Also, once you read this, you can remove the above cout message of course.
+		 *
 		Cell *a = new Cell("a");
 		s.set_head(a);
 		s.set_tail(a);
@@ -99,6 +114,7 @@ class System {
 		}
 
 		delete a;
+		*/
 
 		if (passed) {
 			cout << "System.h passed all tests!" << endl;
