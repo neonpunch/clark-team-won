@@ -19,9 +19,29 @@ class Graphics { //graphics class
 		color = new_color;
 	}
 	// rectangle, an oval, a polygon, and a line methods
-	double makerectangle() {
-		return 0; //stub
+	void drawRectangle(int small_x, int big_x, int small_y, int big_y, int r, int g, int b) {
+		if ((small_x > big_x) || (small_y > big_y)) {
+		cout << RED << "BAD INPUT";
+		resetcolor();
+		cout << endl;
+		exit(0);
+		}
+		resetcolor();
+		setbgcolor(r,g,b);
+		int row;
+		int col;
+		for (row = small_x; row <= big_x; row++) {
+			for (col = small_y; col <= big_y; col++) {
+				movecursor(col,row);
+				cout << " ";
+				}
+		}
+		cout.flush();
+		resetcolor();
+		cout << endl;
 	}
+
+		//return 0; //stub
 	void drawPoint(int row, int col, int r, int g, int b) {
 		resetcolor();
 		setbgcolor(r,g,b);
@@ -69,9 +89,9 @@ inline string testGraphics() { //test to make sure everthing works
 	if (test.makeoval() != 0) {
 		result = false;
 	}
-	if (test.makerectangle() != 0) {
+/*	if (test.makerectangle() != 0) {
 		result = false;
-	}
+	} */
 	if (test.makepolygon() != 0) {
 		result = false;
 	}
