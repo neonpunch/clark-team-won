@@ -11,6 +11,21 @@ class System {
 	int scrnWidth = 0;
 	int scrnHeight = 0;
 	int partCount = 0;
+	/* This should be in system.h
+	   srand(time(0));
+	   auto [rows,cols] = get_terminal_size();
+	   rows--;
+	   cols--;
+	   x = rand() % cols;
+	   y = rand() % rows;
+	   dx = 1;
+	   dy = 1;
+	   lifetime = 1440;
+	   string pSymbol = "*";
+	   double FPS = 144.;
+	   for (int i = 0; i < lifetime; i++) {
+	   }
+	   */
 
 	public: 
 	System(Cell *new_head = nullptr, Cell *new_tail = nullptr, int new_partCount = 0) {
@@ -70,21 +85,23 @@ class System {
 	void sysUpdate() {
 		for (Cell *currNode = head; currNode; currNode = currNode->getNext()) {
 			currNode->particle.Physics();
-			g.drawPoint(20, 20, 49, 23, 92);
+			//Add culling
+			g.drawPoint(currNode->particle.y,currNode->particle.x,100,100,100);
+			//g.drawPoint(20, 20, 49, 23, 92);
 		}
 	}
-			
+
 	/*
-	void drawParticles(gc g) {
+	   void drawParticles(gc g) {
 
-		return;
-	}
+	   return;
+	   }
 
-	void moveParticles() {
+	   void moveParticles() {
 
-		return;
-	}
-	*/
+	   return;
+	   }
+	   */
 	void testSystem() {
 		System s;
 		bool passed = true;
@@ -103,29 +120,29 @@ class System {
 			cout << "PartCount bad" << endl;
 			passed = false;
 		} 
-		
+
 		s.set_partCount(666);
 		if (s.get_partCount() != 666) {
 			cout << "Set or Get PartCount Bad Dumb Bitch" << endl;
 			passed = false;
 		}
-		
+
 		cout << "Check the test code if you see this message" << endl;
 		/* NOTICE
 		 * This test will not work until we have operators to compare Particle objects, as the Cell object now holds 
 		 * Particles instead of a string. Until then, this part of the test should be left commented out.
 		 * Also, once you read this, you can remove the above cout message of course.
 		 *
-		Cell *a = new Cell("a");
-		s.set_head(a);
-		s.set_tail(a);
-		if (s.get_head()->particle != "a" or s.get_tail()->particle != "a") {
-		 	cout << "Set Head or Set Tail or Get Head or Get Tail is Bad" << endl;
-			passed = false;
-		}
+		 Cell *a = new Cell("a");
+		 s.set_head(a);
+		 s.set_tail(a);
+		 if (s.get_head()->particle != "a" or s.get_tail()->particle != "a") {
+		 cout << "Set Head or Set Tail or Get Head or Get Tail is Bad" << endl;
+		 passed = false;
+		 }
 
-		delete a;
-		*/
+		 delete a;
+		 */
 
 		if (passed) {
 			cout << "System.h passed all tests!" << endl;

@@ -68,53 +68,11 @@ class Particle{
 
 		}
 		void Physics(){
-			srand(time(0));
-			auto [rows,cols] = get_terminal_size();
-			rows--;
-			cols--;
-			x = rand() % cols;
-			y = rand() % rows;
-			dx = 1;
-			dy = 1;
-			lifetime = 1440;
-			string pSymbol = "*";
-			double FPS = 144.;
-			show_cursor(false);
-			for (int i = 0; i < lifetime; i++) {
-				x += dx;
-				y += dy;
+			x += dx;
+			y += dy;
+			lifetime--;
+			return;
 
-				if (x < 0) {
-					x *= -1;
-					dx += -1;
-				}
-				if (y < 0) {
-					y *= -1;
-					dy += -1;
-				}
-				if (x >= cols) {
-					x = cols - (x - cols);
-					dx *= -1;
-				}
-				if (y >= rows) {
-					y = rows - (y - rows);
-					dy *= -1;
-				}
-				dx += (rand() % 3) - 1;
-				dy += (rand() % 3) - 1; 
-				if (dx > 1.5) dx = 1.5;
-				if (dx < -1.5) dx = -1.5;
-				if (dy > 1.5) dy = 1.5;
-				if (dy < -1.5) dy = -1.5;
-				movecursor(y, x);
-				// setbgcolor(,,);
-				// setcolor(,,);
-				cout << pSymbol;
-				cout.flush();
-				//reset.color();
-				usleep(1'000'000/FPS);
-				lifetime--;
-				clearscreen();
 			}
 			show_cursor(true);
 			//resetcolor();

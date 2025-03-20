@@ -6,7 +6,7 @@ using namespace std;
 
 class Graphics { //graphics class
 	string color = "";
-  public:
+	public:
 	Graphics() {}
 
 	Graphics(string new_color) {  //constructor
@@ -18,7 +18,7 @@ class Graphics { //graphics class
 	void set_color(string new_color) {  //setter
 		color = new_color;
 	}
-// rectangle, an oval, a polygon, and a line methods
+	// rectangle, an oval, a polygon, and a line methods
 	double makerectangle() {
 		return 0; //stub
 	}
@@ -29,6 +29,21 @@ class Graphics { //graphics class
 		cout << " ";
 		cout.flush();
 		resetcolor();
+
+
+		//This should be in drawPoint in Graphics.h
+		/*
+		   show_cursor(false);
+		   movecursor(y, x);
+		// setbgcolor(,,);
+		// setcolor(,,);
+		cout << pSymbol;
+		cout.flush();
+		//reset.color();
+		usleep(1'000'000/FPS);
+		lifetime--;
+		clearscreen();
+		*/
 	}
 	double makepolygon() {
 		return 0; //stub
@@ -48,9 +63,9 @@ inline string testGraphics() { //test to make sure everthing works
 	if (test.get_color() != "blue") {
 		result = false;
 	}
-/*	if (test.drawPoint() != 0) {
+	/*	if (test.drawPoint() != 0) {
 		result = false;
-	} */
+		} */
 	if (test.makeoval() != 0) {
 		result = false;
 	}
