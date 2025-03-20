@@ -41,37 +41,46 @@ public:
 	}
 
 };
-	//string CellTester() {
+	void testCell() {
 	//return "CellTester currently does not account for the Particle object type. Please contact me (Parker) if testing is needed for the Cell class in the future.";
-		/*
-        Cell* firstNode = new Cell("First node");
-        if (firstNode->particle != "First node") {
-			cout << "One parameter constructor is broken." << endl;
+		
+		bool passed = true;
+		
+        Cell* firstNode = new Cell(Particle());
+        if (firstNode->particle != Particle(0,0,0,0,0)) {
+			cout << "Accessing a particle is broken." << endl;
+			passed = false;
 		}
     
-        Cell* secondNode = new Cell("Second node", firstNode);
+        Cell* secondNode = new Cell(Particle(12,15,0,0,4), firstNode);
         firstNode->next = secondNode; //make firstnode point to secondnode now that it exists
         if (firstNode->next != secondNode) {
 			cout << "Setting the next pointer value of a node to another node does not work." << endl;
+			passed = false;
 		}
 
-        if (secondNode->prev->particle != "First node") {
+        if (secondNode->prev->particle != Particle(0,0,0,0,0)) {
 			cout << "Retrieving the string in the previous node using another node as reference did not work." << endl;
+			passed = false;
 		}
 
-		if (firstNode->next->particle != "Second node") {
+		if (firstNode->next->particle != Particle(12,15,0,0,4)) {
 			cout << "Pointer from the first node to the second node was not set." << endl;
+			passed = false;
 		}
 
-        Cell* thirdNode = new Cell("Third node", nullptr, firstNode);
+        Cell* thirdNode = new Cell(Particle(30,7,0,0,15), nullptr, firstNode);
         firstNode->prev = thirdNode;
-        if (secondNode->prev->prev->particle != "firstNode") {}
+        if (secondNode->prev->prev->particle != Particle(30,7,0,0,15)) {
+			cout << "Accessing two particles before does not work." << endl;
+			passed = false;
+		}
 
 		delete firstNode;
 		delete secondNode;
 		delete thirdNode;
 		
-		return "Cell.h passed all tests!";
-		*/
-	//}
+		if (passed) cout << "Cell.h passed all tests!" << endl;
+		else cout << "Cell.h did not pass all tests." << endl;
+	}
 

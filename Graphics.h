@@ -74,7 +74,7 @@ class Graphics { //graphics class
 };
 inline string testGraphics() { //test to make sure everthing works
 	bool result = true;
-	string p = "Graphics.h passed all tests!";
+	string p = "Graphics.h did not pass all tests.";
 	Graphics test("red");
 	if (test.get_color() != "red") {
 		result = false;
