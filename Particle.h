@@ -73,8 +73,8 @@ class Particle{
 			lifetime--;
 			return;
 
-			}
-			show_cursor(true);
+		//	}
+		//	show_cursor(true);
 			//resetcolor();
 		}
 };
