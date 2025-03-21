@@ -1,5 +1,6 @@
 #pragma once
 #include "/public/colors.h"
+#include "System.h"
 #include <iostream>
 #include <numbers>
 #include <cmath>
@@ -15,7 +16,7 @@ class Particle {
         int lifetime;   // Particle Lifespan
         int r, g, b;    // Particle Color
         enum ParticleType {
-            STREAMER, BALLISTIC, FIREWORK
+            STREAMER, BALLISTIC, FIREWORK //, RESIDUALAURA
         };
         ParticleType type;
 
@@ -86,7 +87,7 @@ class Particle {
             }
         }
 
-        void Physics() {
+        void Physics(System& sys) {
             switch (type) {
                 case STREAMER: 
                     dx *= 0.98;
@@ -96,21 +97,33 @@ class Particle {
                     dy += 0.1;
                     break;
                 case FIREWORK:
-                    double angle = (rand() % 360) * (numbers::pi / 180.0);
-                    double speed = 1.5;
-
-                    dx = speed * cos(angle);
-                    dy = speed * sin(angle);
+                    if (lifetime == 0) {
+                        for (int i = 0; i < 10; ++i) {
+                            double angle = (rand() % 360) * (numbers::pi / 180.0);
+                            double speed = 1.5;
+                            double new_dx = speed * cos(angle);
+                            double new_dy = speed * sin(angle);
+                            Particle newParticle(x, y, new_dx, new_dy, 10, r, g, b, STREAMER);
+                            sys.addParticle(newParticle);
+                        }
+                    } else {
+                        dx *= 0.98;
+                        dy *= 0.98;
+                    }
                     break;
-                /*case RESIDUALAURA: // Smoke effect (small)
-                    dx *= 0.90;
-                    dy *= 0.90;
-                    x += ((rand() % 3) - 1) * 0.1;
-                    y += dy;
-                    lifetime -= 2;
-                    break;*/
+                // case RESIDUALAURA: // Smoke effect (small)
+                //     dx *= 0.90;
+                //     dy *= 0.90;
+                //     x += ((rand() % 3) - 1) * 0.1;
+                //     y += dy;
+                //     lifetime -= 2;
+                //     break;
             }
             x += dx;
+            y += dy;
+            lifetime--;
+        }
+};
             y += dy;
             lifetime--;
         }
