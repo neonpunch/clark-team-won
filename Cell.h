@@ -83,4 +83,3 @@ public:
 		if (passed) cout << "Cell.h passed all tests!" << endl;
 		else cout << "Cell.h did not pass all tests." << endl;
 	}
-
