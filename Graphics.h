@@ -5,19 +5,9 @@
 using namespace std;
 
 class Graphics { //graphics class
-	string color = "";
 	public:
 	Graphics() {}
 
-	Graphics(string new_color) {  //constructor
-		color = new_color;
-	}
-	string get_color() {  //getter
-		return color;
-	}
-	void set_color(string new_color) {  //setter
-		color = new_color;
-	}
 	// rectangle, an oval, a polygon, and a line methods
 	void drawRectangle(int small_x, int big_x, int small_y, int big_y, int r, int g, int b) {
 		if ((small_x > big_x) || (small_y > big_y)) {
@@ -30,9 +20,9 @@ class Graphics { //graphics class
 		setbgcolor(r,g,b);
 		int row;
 		int col;
-		for (row = small_x; row <= big_x; row++) {
-			for (col = small_y; col <= big_y; col++) {
-				movecursor(col,row);
+		for (row = small_y; row <= big_y; row++) {
+			for (col = small_x; col <= big_x; col++) {
+				movecursor(row,col);
 				cout << " ";
 				}
 		}
