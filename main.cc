@@ -5,7 +5,8 @@ using namespace std;
 
 int main () {
 	System Sys;
-	
+	srand(time(0)); // Moved srand to main()
+
 	while (true) {
 		int choice = read("1. Run Tests\n2. Add a particle\n3. Draw particles\n4. Run Physics\n0. Quit\nChoose an option: ");
 		cout << endl;
@@ -17,24 +18,35 @@ int main () {
 			dummy.testParticle();
 
 			Sys.testSystem();
-			cout << testGraphics();
+			cout << testGraphics() << endl;
 		}
 
 		else if (choice == 2) {
 			int xIn = read("Enter the particle's x coordinate: ");
-			int yIn = read("\nEnter the particle's y coordinate: ");
-			int dxIn = read("\nEnter the particle's x velocity: ");
-			int dyIn = read("\nEnter the particle's y velocity: ");
-			int lifetimeIn = read("\nEnter the particle's lifetime: ");
+			int yIn = read("Enter the particle's y coordinate: ");
+			int dxIn = read("Enter the particle's x velocity: ");
+			int dyIn = read("Enter the particle's y velocity: ");
+			int lifetimeIn = read("Enter the particle's lifetime: ");
 
-			int redIn = read("\nEnter the particle's red value: ");
-			int greenIn = read("\nEnter the particle's green value: ");
-			int blueIn = read("\nEnter the particle's blue value: ");
+			int redIn = read("Enter the particle's red value: ");
+			int greenIn = read("Enter the particle's green value: ");
+			int blueIn = read("Enter the particle's blue value: ");
 
-			Particle temp = Particle(xIn,yIn,dxIn,dyIn,lifetimeIn,redIn,greenIn,blueIn);
+			cout << "Select Particle Type: \n1. STREAMER\n2. BALLISTIC\n3. FIREWORK\n";
+			int typeChoice = read("Enter choice: ");
+			Particle::ParticleType type;
+			if (typeChoice == 1) {
+				type = Particle::STREAMER;
+			} else if (typeChoice == 2) {
+				type = Particle::BALLISTIC;
+			} else {
+				type = Particle::FIREWORK;
+			}
+
+			Particle temp = Particle(xIn, yIn, dxIn, dyIn, lifetimeIn, redIn, greenIn, blueIn, type);
 			Sys.addParticle(temp);
 			cout << "Added a particle." << endl;
-		}
+		} 
 		//Draw Particles
 		else if (choice == 3) {
 			if (!(Sys.get_head())) {
@@ -42,7 +54,7 @@ int main () {
 				continue;
 			}
 		 	for (Cell *currNode = Sys.get_head(); currNode; currNode = currNode->getNext()) {
-				Sys.g.drawpoint(currNode->particle.y,currNode->particle.x,currNode->particle.r, currNode->particle.g, currNode->particle.b)
+				Sys.g.drawPoint(currNode->particle.get_y(), currNode->particle.get_x(), currNode->particle.get_r(), currNode->particle.get_g(), currNode->particle.get_b()); // Fixed method call
 			}
 
 		}
@@ -52,9 +64,8 @@ int main () {
 				cout << "There are no particles to update." << endl;
 				continue;
 			}
-			for (Cell *currNode = Sys.get_head(); currNode; currNode = currNode->getNext()) {
-				currNode->particle.Physics();
-			}
+			Sys.sysUpdate(); // Updated to call sysUpdate() instead of iterating manually
+			cout << "Physics updated." << endl;
 		}
 		//Quit
 		else if (choice == 0) {
@@ -67,6 +78,5 @@ int main () {
 			continue;
 		}
 	}
-	
 	
 }
