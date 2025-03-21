@@ -45,3 +45,15 @@ Ishan is responsible for creating the drawPoint() function in Graphics.h.
 Milo is responsible for the Makefile. Also responsible for looping over the linked list and calling drawPoint() and Physics() in System.h.
 
 ### /----------------------/
+**PROJECT MILESTONE #3**
+### /----------------------/
+
+Parker is responsible for creating all of the functionality in main.cc.
+
+Nevan is responsible for implementing the enums Streamer, Ballistic, and Firework in Particle.h
+
+Ishan is responsible for implementing drawRectangle in Graphics.h.
+
+Milo is responsible for restructuring the sysUpdate loop to implement culling in System.h.
+
+### /----------------------/
