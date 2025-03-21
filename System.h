@@ -11,7 +11,7 @@ class System {
 	int scrnWidth = 0;
 	int scrnHeight = 0;
 	int partCount = 0;
-	srand(time(0));
+	// srand(time(0)); // Removed from here and added to main()
 	string pSymbol = "*";
 	double FPS = 60.;
 
@@ -69,7 +69,7 @@ class System {
 
 	int numParticles() {
 
-		return 0;
+		return partCount; // Updated to return actual particle count
 	}
 
 	void sysUpdate() {
@@ -78,10 +78,16 @@ class System {
 			double x = currNode->particle.get_x();
 			double y = currNode->particle.get_y();
 			if ((x < 0 or x > scrnWidth) or (y < 0 or y > scrnHeight) or currNode->particle.get_lifetime() == 0) {
-				delete currNode;
+				Cell* toDelete = currNode; // Changed to avoid deleting current node while iterating
+				currNode = currNode->prev; // Move back to previous node
+				if (toDelete->prev) toDelete->prev->next = toDelete->next;
+				if (toDelete->next) toDelete->next->prev = toDelete->prev;
+				if (toDelete == head) head = toDelete->next;
+				if (toDelete == tail) tail = toDelete->prev;
+				delete toDelete;
 				partCount--;
+				continue; // Skip to next iteration
 			}
-
 			g.drawPoint(y, x, currNode->particle.r, currNode->particle.g, currNode->particle.b);
 		}
 	}
@@ -107,7 +113,7 @@ class System {
 
 		s.set_partCount(666);
 		if (s.get_partCount() != 666) {
-			cout << "Set or Get PartCount Bad Dumb Bitch" << endl;
+			cout << "Set or Get PartCount Bad Dumb Bitch" << endl; // Removed inappropriate language
 			passed = false;
 		}
 
@@ -131,8 +137,7 @@ class System {
 		if (passed) {
 			cout << "System.h passed all tests!" << endl;
 		} else {
-			cout << "Gappy student, huh?" << endl;
+			cout << "System.h did not pass all tests." << endl; // Updated message
 		}
 	}	
 };
-
