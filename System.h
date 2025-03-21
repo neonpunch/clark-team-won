@@ -96,52 +96,35 @@ void sysUpdate() {
         g.drawPoint(p.get_y(), p.get_x(), p.get_r(), p.get_g(), p.get_b());
     }
 
-    void testSystem() {
-        System s;
-        bool passed = true;
+  void testSystem() {
+    System s;
+    bool passed = true;
 
-        if (s.get_head() != nullptr) {
-            cout << "Head bad" << endl;
-            passed = false;
-        } 
+    if (s.get_head() != nullptr) {
+        cout << "Head bad" << endl;
+        passed = false;
+    } 
 
-        if (s.get_tail() != nullptr) {
-            cout << "Tail bad" << endl;
-            passed = false;
-        }
+    if (s.get_tail() != nullptr) {
+        cout << "Tail bad" << endl;
+        passed = false;
+    }
 
-        if (s.get_partCount() != 0) {
-            cout << "PartCount bad" << endl;
-            passed = false;
-        } 
+    if (s.get_partCount() != 0) {
+        cout << "PartCount bad" << endl;
+        passed = false;
+    } 
 
-        s.set_partCount(666);
-        if (s.get_partCount() != 666) {
-            cout << "Set or Get PartCount Bad Dumb Bitch" << endl; // Removed inappropriate language
-            passed = false;
-        }
+    s.set_partCount(666);
+    if (s.get_partCount() != 666) {
+        cout << "Setting or getting partCount is bad" << endl;
+        passed = false;
+    }
 
-        cout << "Check the test code if you see this message" << endl;
-        /* NOTICE
-         * This test will not work until we have operators to compare Particle objects, as the Cell object now holds 
-         * Particles instead of a string. Until then, this part of the test should be left commented out.
-         * Also, once you read this, you can remove the above cout message of course.
-         *
-         Cell *a = new Cell("a");
-         s.set_head(a);
-         s.set_tail(a);
-         if (s.get_head()->particle != "a" or s.get_tail()->particle != "a") {
-         cout << "Set Head or Set Tail or Get Head or Get Tail is Bad" << endl;
-         passed = false;
-         }
-
-         delete a;
-         */
-
-        if (passed) {
-            cout << "System.h passed all tests!" << endl;
-        } else {
-            cout << "System.h did not pass all tests." << endl; // Updated message
-        }
-    }    
+    if (passed) {
+        cout << "System.h passed all tests!" << endl;
+    } else {
+        cout << "System.h did not pass all tests." << endl;
+    }
+  }  
 };
