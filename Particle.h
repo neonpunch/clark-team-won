@@ -63,8 +63,6 @@ class Particle{
 			if (p.get_dy() != 0) testsPassed = false;
 			if (p.get_lifetime() != 0) testsPassed = false;
 
-			//  cout << "Initializing.\n";
-			//  cout << "x: " << p.get_x() << ", y: " << p.get_y() << ", dx: " << p.get_dx() << ", dy: " << p.get_dy() << ", Lifetime: " << p.get_lifetime() << "\n";
 
 			p.set_x(14.0);
 			p.set_y(24.6);
@@ -72,8 +70,6 @@ class Particle{
 			p.set_dy(-1.0);
 			p.set_lifetime(180);
 
-			//  cout << "\nSetting.\n";
-			//  cout << "x: " << p.get_x() << ", y: " << p.get_y() << ", dx: " << p.get_dx() << ", dy: " << p.get_dy() << ", Lifetime: " << p.get_lifetime() << "\n";
 
 			if (p.get_x() != 14.0) testsPassed = false;
 			if (p.get_y() != 24.6) testsPassed = false;
