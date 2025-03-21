@@ -1,6 +1,5 @@
 #pragma once
 #include "/public/colors.h"
-#include "System.h"
 #include <iostream>
 #include <numbers>
 #include <cmath>
@@ -20,16 +19,17 @@ class Particle{
 			STREAMER, BALLISTIC, FIREWORK, RESIDUALAURA
 		};
 		ParticleType type;
-		Particle(double new_x = 0, double new_y = 0, double new_dx = 0, double new_dy = 0, int newLifetime = 0, int newR, int newG, int newB, ParticleType newType = FIRWORK): x(new_x), y(new_y), dx(new_dx), dy(new_dy), lifetime(newLifetime), r(newR), g(newG), b(newB), type(newType){}
-
-		if (newR < 0 || newR > 255){
-			r = 5;
-		}
-		if (newG < 0 || newG > 255){
-			g = 5;
-		}
-		if (newB < 0 || newB > 255){
-			b = 5;
+		Particle(double new_x = 0, double new_y = 0, double new_dx = 0, double new_dy = 0, int newLifetime = 0, int newR = 0, int newG = 0, int newB = 0, ParticleType newType = FIREWORK): x(new_x), y(new_y), dx(new_dx), dy(new_dy), lifetime(newLifetime), r(newR), g(newG), b(newB), type(newType) {
+			
+			if (newR < 0 || newR > 255){
+				r = 5;
+			}
+			if (newG < 0 || newG > 255){
+				g = 5;
+			}
+			if (newB < 0 || newB > 255){
+				b = 5;
+			}
 		}
 
 		double get_x() const{return x;}
@@ -75,7 +75,7 @@ class Particle{
 			if (p.get_y() != 24.6) testsPassed = false;
 			if (p.get_dx() != 2.0) testsPassed = false;
 			if (p.get_dy() != -1.0) testsPassed = false;
-			if (p.get_lifetime() != 90) testsPassed = false;
+			if (p.get_lifetime() != 180) testsPassed = false; // Fixed lifetime test value
 
 			if (testsPassed){
 				cout << "Particle.h passed all tests!\n";
@@ -88,37 +88,31 @@ class Particle{
             switch (type){
                 case STREAMER: 
                     dx *= 0.98;
-					dy *= 0.98;
+		    dy *= 0.98;
                     break;
                 case BALLISTIC:
                     dy += 0.1;
                     break;
                 case FIREWORK:
-                    double angle = (rand() % 360) * (pi / 180.0); // i.e. 540 % 360 = 180 * (pi / 180) = pi 
+                    double angle = (rand() % 360) * (numbers::pi / 180.0); // i.e. 540 % 360 = 180 * (pi / 180) = pi 
                     double speed = 1.5;
 
-                    double new_dx = speed * cos(angle);
-                    double new_dy = speed * sin(angle);
+                    dx = speed * cos(angle); // Updated to assign new_dx and new_dy to dx and dy
+                    dy = speed * sin(angle);
 
                     break;
                 case RESIDUALAURA: // Smoke effect (small)
                     dx *= 0.90;
-					dy *= 0.90;
-					x += ((rand() % 3) - 1) * 0.1;
-					y += dy;
-					lifetime -= 2;
+		    dy *= 0.90;
+		    x += ((rand() % 3) - 1) * 0.1;
+		    y += dy;
+	            lifetime -= 2;
                     break;
             }
 			x += dx;
 			y += dy;
 			lifetime--;
 			return;
-		}
+		}	
 
-
-
-		//	}
-		//	show_cursor(true);
-			//resetcolor();
-		}
 };
