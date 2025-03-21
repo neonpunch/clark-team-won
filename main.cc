@@ -8,10 +8,10 @@ int main () {
     srand(time(0)); // Moved srand to main()
 
     while (true) {
-        int choice = read("1. Run Tests\n2. Add a particle\n3. Draw particles\n4. Run Physics\n0. Quit\nChoose an option: ");
+        int choice = read("1. Run Tests\n2. Add a particle\n3. Draw particles\n4. Run Physics\n5. Run Animation\n0. Quit\nChoose an option: ");
         cout << endl;
 
-        //Run Tests
+        // Run Tests
         if (choice == 1) {
             testCell();
             Particle dummy;
@@ -20,7 +20,7 @@ int main () {
             Sys.testSystem();
             cout << testGraphics() << endl;
         }
-
+        // Add a particle
         else if (choice == 2) {
             int xIn = read("Enter the particle's x coordinate: ");
             int yIn = read("Enter the particle's y coordinate: ");
@@ -47,18 +47,18 @@ int main () {
             Sys.addParticle(temp);
             cout << "Added a particle." << endl;
         } 
-        //Draw Particles
+        // Draw Particles
         else if (choice == 3) {
             if (!(Sys.get_head())) {
                 cout << "There are no particles to draw." << endl;
                 continue;
             }
+            clearscreen();
             for (Cell *currNode = Sys.get_head(); currNode; currNode = currNode->getNext()) {
                 Sys.drawParticle(currNode->particle); // Use the new public method
             }
-
         }
-        //Update Physics
+        // Update Physics
         else if (choice == 4) {
             if (!(Sys.get_head())) {
                 cout << "There are no particles to update." << endl;
@@ -67,12 +67,23 @@ int main () {
             Sys.sysUpdate(); // Updated to call sysUpdate() instead of iterating manually
             cout << "Physics updated." << endl;
         }
-        //Quit
+        // Run Animation
+        else if (choice == 5) {
+            for (int i = 0; i < 10; ++i) {
+                clearscreen();
+                Sys.sysUpdate();
+                for (Cell *currNode = Sys.get_head(); currNode; currNode = currNode->getNext()) {
+                    Sys.drawParticle(currNode->particle); // Use the new public method
+                }
+                usleep(100000); // Sleep for 100 milliseconds
+            }
+        }
+        // Quit
         else if (choice == 0) {
             cout << "Quitting." << endl;
             break;
         }
-        //Wrong input
+        // Wrong input
         else {
             cout << "That was not an option. Please try again." << endl;
             continue;
