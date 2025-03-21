@@ -57,7 +57,7 @@ void testCell() {
         passed = false;
     }
 
-    if (!(secondNode->prev->particle == Particle(0,0,0,0,0))) {
+    if (!(secondNode->prev->particle == Particle(0,0,0,0,0,5,5,5))) {
         cout << "Retrieving the particle in the previous node using another node as reference did not work." << endl;
         passed = false;
     }
