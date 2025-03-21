@@ -11,21 +11,9 @@ class System {
 	int scrnWidth = 0;
 	int scrnHeight = 0;
 	int partCount = 0;
-	/* This should be in system.h
-	   srand(time(0));
-	   auto [rows,cols] = get_terminal_size();
-	   rows--;
-	   cols--;
-	   x = rand() % cols;
-	   y = rand() % rows;
-	   dx = 1;
-	   dy = 1;
-	   lifetime = 1440;
-	   string pSymbol = "*";
-	   double FPS = 144.;
-	   for (int i = 0; i < lifetime; i++) {
-	   }
-	   */
+	srand(time(0));
+	string pSymbol = "*";
+	double FPS = 60.;
 
 	public: 
 	System(Cell *new_head = nullptr, Cell *new_tail = nullptr, int new_partCount = 0) {
@@ -35,6 +23,8 @@ class System {
 		const auto [ROWS, COLS] = get_terminal_size();
 		scrnWidth = COLS;
 		scrnHeight = ROWS;
+		scrnHeight--;
+		scrnWidth--;
 	}
 
 	~System() {
@@ -85,23 +75,17 @@ class System {
 	void sysUpdate() {
 		for (Cell *currNode = head; currNode; currNode = currNode->getNext()) {
 			currNode->particle.Physics();
-			//Add culling
-			g.drawPoint(currNode->particle.y,currNode->particle.x,100,100,100);
-			//g.drawPoint(20, 20, 49, 23, 92);
+			double x = currNode->particle.get_x();
+			double y = currNode->particle.get_y();
+			if ((x < 0 or x > scrnWidth) or (y < 0 or y > scrnHeight) or currNode->particle.get_lifetime() == 0) {
+				delete currNode;
+				partCount--;
+			}
+
+			g.drawPoint(y, x, currNode->particle.r, currNode->particle.g, currNode->particle.b);
 		}
 	}
 
-	/*
-	   void drawParticles(gc g) {
-
-	   return;
-	   }
-
-	   void moveParticles() {
-
-	   return;
-	   }
-	   */
 	void testSystem() {
 		System s;
 		bool passed = true;
