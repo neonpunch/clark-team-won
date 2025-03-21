@@ -15,7 +15,7 @@ class Particle {
         int lifetime;   // Particle Lifespan
         int r, g, b;    // Particle Color
         enum ParticleType {
-            STREAMER, BALLISTIC, FIREWORK, RESIDUALAURA
+            STREAMER, BALLISTIC, FIREWORK
         };
         ParticleType type;
 
@@ -102,13 +102,13 @@ class Particle {
                     dx = speed * cos(angle);
                     dy = speed * sin(angle);
                     break;
-                case RESIDUALAURA: // Smoke effect (small)
+                /*case RESIDUALAURA: // Smoke effect (small)
                     dx *= 0.90;
                     dy *= 0.90;
                     x += ((rand() % 3) - 1) * 0.1;
                     y += dy;
                     lifetime -= 2;
-                    break;
+                    break;*/
             }
             x += dx;
             y += dy;
