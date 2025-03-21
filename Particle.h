@@ -8,18 +8,19 @@
 #include <cassert>
 using namespace std;
 
-class Particle{
+class Particle {
 	public:
 		double x, y;	// Particle Initial Position
-		// Color color;
 		double dx, dy;	// Particle Velocity
 		int lifetime;	// Particle Lifespan
-		int r, g, b;
+		int r, g, b;    // Particle Color
 		enum ParticleType {
 			STREAMER, BALLISTIC, FIREWORK, RESIDUALAURA
 		};
 		ParticleType type;
-		Particle(double new_x = 0, double new_y = 0, double new_dx = 0, double new_dy = 0, int newLifetime = 0, int newR = 0, int newG = 0, int newB = 0, ParticleType newType = FIREWORK): x(new_x), y(new_y), dx(new_dx), dy(new_dy), lifetime(newLifetime), r(newR), g(newG), b(newB), type(newType) {
+
+		Particle(double new_x = 0, double new_y = 0, double new_dx = 0, double new_dy = 0, int newLifetime = 0, int newR = 0, int newG = 0, int newB = 0, ParticleType newType = FIREWORK)
+			: x(new_x), y(new_y), dx(new_dx), dy(new_dy), lifetime(newLifetime), r(newR), g(newG), b(newB), type(newType) {
 			
 			if (newR < 0 || newR > 255){
 				r = 5;
@@ -41,6 +42,7 @@ class Particle{
 		int get_g() const{return g;}
 		int get_b() const{return b;}
 		ParticleType get_type() const{return type;}
+
 		void set_x(double new_x) {x = new_x;}
 		void set_y(double new_y) {y = new_y;}
 		void set_dx(double new_dx) {dx = new_dx;}
@@ -51,8 +53,11 @@ class Particle{
 		void set_b(double newB) {b = newB;}
 		void set_type(ParticleType newType) {type = newType;}
 
-		void testParticle(){
+		bool operator==(const Particle& other) const {
+			return x == other.x && y == other.y && dx == other.dx && dy == other.dy && lifetime == other.lifetime && r == other.r && g == other.g && b == other.b && type == other.type;
+		}
 
+		void testParticle() {
 			Particle p;
 
 			bool testsPassed = true;
@@ -63,13 +68,11 @@ class Particle{
 			if (p.get_dy() != 0) testsPassed = false;
 			if (p.get_lifetime() != 0) testsPassed = false;
 
-
 			p.set_x(14.0);
 			p.set_y(24.6);
 			p.set_dx(2.0);
 			p.set_dy(-1.0);
 			p.set_lifetime(180);
-
 
 			if (p.get_x() != 14.0) testsPassed = false;
 			if (p.get_y() != 24.6) testsPassed = false;
@@ -82,37 +85,34 @@ class Particle{
 			} else {
 				cout << "Some tests failed.\n";
 			}
-
 		}
-		void Physics(){
-            switch (type){
-                case STREAMER: 
-                    dx *= 0.98;
-		    dy *= 0.98;
-                    break;
-                case BALLISTIC:
-                    dy += 0.1;
-                    break;
-                case FIREWORK:
-                    double angle = (rand() % 360) * (numbers::pi / 180.0); // i.e. 540 % 360 = 180 * (pi / 180) = pi 
-                    double speed = 1.5;
 
-                    dx = speed * cos(angle); // Updated to assign new_dx and new_dy to dx and dy
-                    dy = speed * sin(angle);
+		void Physics() {
+			switch (type) {
+				case STREAMER: 
+					dx *= 0.98;
+					dy *= 0.98;
+					break;
+				case BALLISTIC:
+					dy += 0.1;
+					break;
+				case FIREWORK:
+					double angle = (rand() % 360) * (numbers::pi / 180.0);
+					double speed = 1.5;
 
-                    break;
-                case RESIDUALAURA: // Smoke effect (small)
-                    dx *= 0.90;
-		    dy *= 0.90;
-		    x += ((rand() % 3) - 1) * 0.1;
-		    y += dy;
-	            lifetime -= 2;
-                    break;
-            }
+					dx = speed * cos(angle);
+					dy = speed * sin(angle);
+					break;
+				case RESIDUALAURA: // Smoke effect (small)
+					dx *= 0.90;
+					dy *= 0.90;
+					x += ((rand() % 3) - 1) * 0.1;
+					y += dy;
+					lifetime -= 2;
+					break;
+			}
 			x += dx;
 			y += dy;
 			lifetime--;
-			return;
-		}	
-
+		}
 };
