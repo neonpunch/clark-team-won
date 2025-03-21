@@ -50,23 +50,6 @@ class Particle{
 		void set_g(double newG) {g = newG;}
 		void set_b(double newB) {b = newB;}
 		void set_type(ParticleType newType) {type = newType;}
-/*
-		void update(){
-			switch (type){
-				case STREAMER:
-					update_streamer();
-					break;
-				case BALLISTIC:
-					update_streamer();
-					break;
-				case FIREWORK:
-					update_firework();
-					break;
-				case RESIDUALAURA:
-					update_residualaura;
-					break;
-			}
-		}*/
 
 		void testParticle(){
 
