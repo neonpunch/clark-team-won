@@ -71,25 +71,26 @@ public:
         return partCount; // Updated to return actual particle count
     }
 
-    void sysUpdate() {
-        for (Cell *currNode = head; currNode; currNode = currNode->getNext()) {
-            currNode->particle.Physics();
-            double x = currNode->particle.get_x();
-            double y = currNode->particle.get_y();
-            if ((x < 0 or x > scrnWidth) or (y < 0 or y > scrnHeight) or currNode->particle.get_lifetime() == 0) {
-                Cell* toDelete = currNode; // Changed to avoid deleting current node while iterating
-                currNode = currNode->prev; // Move back to previous node
-                if (toDelete->prev) toDelete->prev->next = toDelete->next;
-                if (toDelete->next) toDelete->next->prev = toDelete->prev;
-                if (toDelete == head) head = toDelete->next;
-                if (toDelete == tail) tail = toDelete->prev;
-                delete toDelete;
-                partCount--;
-                continue; // Skip to next iteration
-            }
+void sysUpdate() {
+    Cell *currNode = head;
+    while (currNode) {
+        Cell *nextNode = currNode->getNext(); // Save the next node before potentially deleting the current node
+        currNode->particle.Physics();
+        double x = currNode->particle.get_x();
+        double y = currNode->particle.get_y();
+        if ((x < 0 or x > scrnWidth) or (y < 0 or y > scrnHeight) or currNode->particle.get_lifetime() == 0) {
+            if (currNode->prev) currNode->prev->next = currNode->next;
+            if (currNode->next) currNode->next->prev = currNode->prev;
+            if (currNode == head) head = currNode->next;
+            if (currNode == tail) tail = currNode->prev;
+            delete currNode;
+            partCount--;
+        } else {
             drawParticle(currNode->particle);
         }
+        currNode = nextNode; // Move to the next node
     }
+}
 
     void drawParticle(const Particle &p) {
         g.drawPoint(p.get_y(), p.get_x(), p.get_r(), p.get_g(), p.get_b());
