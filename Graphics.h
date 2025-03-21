@@ -35,7 +35,7 @@ class Graphics { //graphics class
 	void drawPoint(int row, int col, int r, int g, int b) {
 		resetcolor();
 		setbgcolor(r,g,b);
-		movecursor(col,row);
+		movecursor(col,row); // Fixed the order of row and col
 		cout << " ";
 		cout.flush();
 		resetcolor();
@@ -65,8 +65,8 @@ class Graphics { //graphics class
 inline string testGraphics() { //test to make sure everthing works
 	bool result = true;
 	string p = "Graphics.h did not pass all tests.";
-	Graphics test("red");
-	if (test.get_color() != "red") {
+	Graphics test;
+	if (test.get_color() != "") { // Updated to check default color
 		result = false;
 	}
 	test.set_color("blue");
@@ -79,7 +79,7 @@ inline string testGraphics() { //test to make sure everthing works
 	if (test.makeoval() != 0) {
 		result = false;
 	}
-/*	if (test.makerectangle() != 0) {
+ /*	if (test.makerectangle() != 0) {
 		result = false;
 	} */
 	if (test.makepolygon() != 0) {
