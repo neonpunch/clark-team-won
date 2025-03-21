@@ -9,6 +9,8 @@
 #include <cassert>
 using namespace std;
 
+class System; // Forward declaration
+
 class Particle {
     public:
         double x, y;    // Particle Initial Position
@@ -120,10 +122,6 @@ class Particle {
                 //     break;
             }
             x += dx;
-            y += dy;
-            lifetime--;
-        }
-};
             y += dy;
             lifetime--;
         }
