@@ -8,8 +8,6 @@
 #include <cassert>
 using namespace std;
 
-class System; // Forward declaration
-
 class Particle {
     public:
         double x, y;    // Particle Initial Position
@@ -88,5 +86,35 @@ class Particle {
             }
         }
 
-        void Physics(System& sys);
+        void Physics() {
+            switch (type) {
+                case STREAMER: 
+                    dx *= 0.98;
+                    dy *= 0.98;
+                    break;
+                case BALLISTIC:
+                    dy += 0.1;
+                    break;
+                case FIREWORK:
+                    if (lifetime == 0) {
+                        // Explosion logic should be handled in the System class
+                        dx *= 0.98;
+                        dy *= 0.98;
+                    } else {
+                        dx *= 0.98;
+                        dy *= 0.98;
+                    }
+                    break;
+                // case RESIDUALAURA: // Smoke effect (small)
+                //     dx *= 0.90;
+                //     dy *= 0.90;
+                //     x += ((rand() % 3) - 1) * 0.1;
+                //     y += dy;
+                //     lifetime -= 2;
+                //     break;
+            }
+            x += dx;
+            y += dy;
+            lifetime--;
+        }
 };
