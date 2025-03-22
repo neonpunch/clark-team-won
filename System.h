@@ -75,10 +75,21 @@ public:
         Cell *currNode = head;
         while (currNode) {
             Cell *nextNode = currNode->getNext(); // Save the next node before potentially deleting the current node
-            currNode->particle.Physics(*this); // Pass system to Physics
+            currNode->particle.Physics(); // Physics update
             double x = currNode->particle.get_x();
             double y = currNode->particle.get_y();
             if ((x < 0 or x > scrnWidth) or (y < 0 or y > scrnHeight) or currNode->particle.get_lifetime() == 0) {
+                if (currNode->particle.get_type() == Particle::FIREWORK && currNode->particle.get_lifetime() == 0) {
+                    // Create explosion particles
+                    for (int i = 0; i < 10; ++i) {
+                        double angle = (rand() % 360) * (numbers::pi / 180.0);
+                        double speed = 1.5;
+                        double new_dx = speed * cos(angle);
+                        double new_dy = speed * sin(angle);
+                        Particle newParticle(currNode->particle.get_x(), currNode->particle.get_y(), new_dx, new_dy, 10, currNode->particle.get_r(), currNode->particle.get_g(), currNode->particle.get_b(), Particle::STREAMER);
+                        addParticle(newParticle);
+                    }
+                }
                 if (currNode->prev) currNode->prev->next = currNode->next;
                 if (currNode->next) currNode->next->prev = currNode->prev;
                 if (currNode == head) head = currNode->next;
@@ -128,41 +139,3 @@ public:
         }
     }    
 };
-
-// Move the implementation of the Physics method here
-void Particle::Physics(System& sys) {
-    switch (type) {
-        case STREAMER: 
-            dx *= 0.98;
-            dy *= 0.98;
-            break;
-        case BALLISTIC:
-            dy += 0.1;
-            break;
-        case FIREWORK:
-            if (lifetime == 0) {
-                for (int i = 0; i < 10; ++i) {
-                    double angle = (rand() % 360) * (numbers::pi / 180.0);
-                    double speed = 1.5;
-                    double new_dx = speed * cos(angle);
-                    double new_dy = speed * sin(angle);
-                    Particle newParticle(x, y, new_dx, new_dy, 10, r, g, b, STREAMER);
-                    sys.addParticle(newParticle);
-                }
-            } else {
-                dx *= 0.98;
-                dy *= 0.98;
-            }
-            break;
-        // case RESIDUALAURA: // Smoke effect (small)
-        //     dx *= 0.90;
-        //     dy *= 0.90;
-        //     x += ((rand() % 3) - 1) * 0.1;
-        //     y += dy;
-        //     lifetime -= 2;
-        //     break;
-    }
-    x += dx;
-    y += dy;
-    lifetime--;
-}
