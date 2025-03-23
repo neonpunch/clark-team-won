@@ -80,13 +80,13 @@ public:
             double y = currNode->particle.get_y();
             if ((x < 0 or x > scrnWidth) or (y < 0 or y > scrnHeight) or currNode->particle.get_lifetime() == 0) {
                 if (currNode->particle.get_type() == Particle::FIREWORK && currNode->particle.get_lifetime() == 0) {
-                    // Create explosion particles
+                    // Create explosion particles with effectively infinite lifetime
                     for (int i = 0; i < 10; ++i) {
                         double angle = (rand() % 360) * (numbers::pi / 180.0);
                         double speed = 1.5;
                         double new_dx = speed * cos(angle);
                         double new_dy = speed * sin(angle);
-                        Particle newParticle(currNode->particle.get_x(), currNode->particle.get_y(), new_dx, new_dy, 10, currNode->particle.get_r(), currNode->particle.get_g(), currNode->particle.get_b(), Particle::STREAMER);
+                        Particle newParticle(currNode->particle.get_x(), currNode->particle.get_y(), new_dx, new_dy, INT_MAX, currNode->particle.get_r(), currNode->particle.get_g(), currNode->particle.get_b(), Particle::STREAMER);
                         addParticle(newParticle);
                     }
                 }
