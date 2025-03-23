@@ -29,8 +29,8 @@ public:
         setbgcolor(r,g,b);
         int row;
         int col;
-        for (row = small_y; row <= big_y; row++) {
-            for (col = small_x; col <= big_x; col++) {
+        for (col = small_y; col <= big_y; col++) {
+            for (row = small_x; row <= big_x; row++) {
                 movecursor(row,col);
                 cout << " ";
             }
@@ -40,10 +40,10 @@ public:
         cout << endl;
     }
 
-    void drawPoint(int row, int col, int r, int g, int b) {
+    void drawPoint(int col, int row, int r, int g, int b) {
         resetcolor();
         setbgcolor(r,g,b);
-        movecursor(col,row); // Fixed the order of row and col
+        movecursor(row,col); // Fixed the order of row and col
         cout << " ";
         cout.flush();
         resetcolor();

@@ -22,13 +22,13 @@ class Particle {
         Particle(double new_x = 0, double new_y = 0, double new_dx = 0, double new_dy = 0, int newLifetime = 0, int newR = 5, int newG = 5, int newB = 5, ParticleType newType = FIREWORK)
             : x(new_x), y(new_y), dx(new_dx), dy(new_dy), lifetime(newLifetime), r(newR), g(newG), b(newB), type(newType) {
             if (newR < 0 || newR > 255){
-                r = 5;
+                r = 100;
             }
             if (newG < 0 || newG > 255){
-                g = 5;
+                g = 100;
             }
             if (newB < 0 || newB > 255){
-                b = 5;
+                b = 100;
             }
         }
 
