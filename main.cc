@@ -91,6 +91,8 @@ int main () {
         // Quit
         else if (choice == 0) {
             cout << "Quitting." << endl;
+			clearscreen();
+			show_cursor(true);
             break;
         }
         // Wrong input
