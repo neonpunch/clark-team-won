@@ -1,4 +1,5 @@
 #include <iostream>
+#include <csignal>
 #include "System.h"
 #include "/public/read.h"
 using namespace std;
@@ -79,8 +80,9 @@ int main () {
                     Sys.drawParticle(currNode->particle); // Use the new public method
                 }
                 usleep(100000); // Sleep for 100 milliseconds
-            } show_cursor(true);
-        }
+            } 
+				show_cursor(true);
+         }
         // Quit
         else if (choice == 0) {
             cout << "Quitting." << endl;
