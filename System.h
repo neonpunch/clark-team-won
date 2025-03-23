@@ -13,7 +13,7 @@ class System {
     int partCount = 0;
     // srand(time(0)); // Removed from here and added to main()
     string pSymbol = "*";
-    double FPS = 60.;
+    double FPS = 90.;
 
 public: 
     System(Cell *new_head = nullptr, Cell *new_tail = nullptr, int new_partCount = 0) {
@@ -71,37 +71,42 @@ public:
         return partCount; // Updated to return actual particle count
     }
 
-    void sysUpdate() {
-        Cell *currNode = head;
-        while (currNode) {
-            Cell *nextNode = currNode->getNext(); // Save the next node before potentially deleting the current node
-            currNode->particle.Physics(); // Physics update
-            double x = currNode->particle.get_x();
-            double y = currNode->particle.get_y();
-            if ((x < 0 or x > scrnWidth) or (y < 0 or y > scrnHeight) or currNode->particle.get_lifetime() == 0) {
-                if (currNode->particle.get_type() == Particle::FIREWORK && currNode->particle.get_lifetime() == 0) {
-                    // Create explosion particles with effectively infinite lifetime
-                    for (int i = 0; i < 10; ++i) {
-                        double angle = (rand() % 360) * (numbers::pi / 180.0);
-                        double speed = 1.5;
-                        double new_dx = speed * cos(angle);
-                        double new_dy = speed * sin(angle);
-                        Particle newParticle(currNode->particle.get_x(), currNode->particle.get_y(), new_dx, new_dy, INT_MAX, currNode->particle.get_r(), currNode->particle.get_g(), currNode->particle.get_b(), Particle::STREAMER);
-                        addParticle(newParticle);
-                    }
+void sysUpdate() {
+    Cell *currNode = head;
+    while (currNode) {
+        Cell *nextNode = currNode->getNext(); // Save the next node before potentially deleting the current node
+        currNode->particle.Physics(); // Physics update
+
+        double x = currNode->particle.get_x();
+        double y = currNode->particle.get_y();
+
+        // Check for culling conditions
+        if ((x < 0 or x > scrnWidth) or (y < 0 or y > scrnHeight) or currNode->particle.get_lifetime() == 0) {
+            // Explosion logic for FIREWORK particles
+            if (currNode->particle.get_type() == Particle::FIREWORK && currNode->particle.get_lifetime() == 0) {
+                // Create explosion particles
+                for (int i = 0; i < 10; ++i) {
+                    double angle = (rand() % 360) * (numbers::pi / 180.0);
+                    double speed = 1.5;
+                    double new_dx = speed * cos(angle);
+                    double new_dy = speed * sin(angle);
+                    Particle newParticle(currNode->particle.get_x(), currNode->particle.get_y(), new_dx, new_dy, INT_MAX, currNode->particle.get_r(), currNode->particle.get_g(), currNode->particle.get_b(), Particle::STREAMER);
+                    addParticle(newParticle);
                 }
-                if (currNode->prev) currNode->prev->next = currNode->next;
-                if (currNode->next) currNode->next->prev = currNode->prev;
-                if (currNode == head) head = currNode->next;
-                if (currNode == tail) tail = currNode->prev;
-                delete currNode;
-                partCount--;
-            } else {
-                drawParticle(currNode->particle);
             }
-            currNode = nextNode; // Move to the next node
+            // Remove the current node from the list and delete it
+            if (currNode->prev) currNode->prev->next = currNode->next;
+            if (currNode->next) currNode->next->prev = currNode->prev;
+            if (currNode == head) head = currNode->next;
+            if (currNode == tail) tail = currNode->prev;
+            delete currNode;
+            partCount--;
+        } else {
+            drawParticle(currNode->particle); // Draw the particle if it's not culled
         }
+        currNode = nextNode; // Move to the next node
     }
+}
 
     void drawParticle(const Particle &p) {
         g.drawPoint(p.get_y(), p.get_x(), p.get_r(), p.get_g(), p.get_b());
