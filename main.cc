@@ -8,9 +8,9 @@ int main () {
     srand(time(0)); // Initialize random seed
 
     // Add some initial particles to the system
-    Sys.addParticle(Particle(10, 10, 1, 1, 50, 255, 0, 0, Particle::STREAMER));
-    Sys.addParticle(Particle(20, 20, -1, -1, 50, 0, 255, 0, Particle::BALLISTIC));
-    Sys.addParticle(Particle(30, 30, 0, 0, 10, 0, 0, 255, Particle::FIREWORK));
+    //Sys.addParticle(Particle(10, 10, 1, 1, 50, 255, 0, 0, Particle::STREAMER));
+    //Sys.addParticle(Particle(20, 20, -1, -1, 50, 0, 255, 0, Particle::BALLISTIC));
+    //Sys.addParticle(Particle(30, 30, 0, 0, 10, 0, 0, 255, Particle::FIREWORK));
 
     while (true) {
         int choice = read("1. Run Tests\n2. Add a particle\n3. Draw particles\n4. Run Physics\n5. Run Simulation\n0. Quit\nChoose an option: ");
@@ -66,12 +66,12 @@ int main () {
                 continue;
             }
             Sys.sysUpdate(); // Updated to call sysUpdate() instead of iterating manually
-            cout << "Physics updated." << endl;
         }
         // Run Simulation with preset particles
         else if (choice == 5) {
             // Run the simulation for a specified number of iterations
             int iterations = read("Enter number of iterations for the simulation: ");
+			show_cursor(false);
             for (int i = 0; i < iterations; ++i) {
                 clearscreen();
                 Sys.sysUpdate();
@@ -79,7 +79,7 @@ int main () {
                     Sys.drawParticle(currNode->particle); // Use the new public method
                 }
                 usleep(100000); // Sleep for 100 milliseconds
-            }
+            } show_cursor(true);
         }
         // Quit
         else if (choice == 0) {
