@@ -88,23 +88,19 @@ class Particle {
 
         void Physics() {
             switch (type) {
-                case STREAMER: 
-                    dx = 0;
-                    dy += 0.1;
-                    break;
+                case STREAMER:
+					dx *= 1;
+					dy += 0.01;
+					//dx = 0;
+                    //dy += 0.1;
+					break;
                 case BALLISTIC:
                     dx *= 1.5;
 					dy -= 1;
                     break;
                 case FIREWORK:
-                    if (lifetime == 0) {
-                        // Explosion logic should be handled in the System class
-                        dx *= 0.98;
-                        dy *= 0.98;
-                    } else {
-                        dx *= 0.98;
-                        dy *= 0.98;
-                    }
+                    dx *= 0.98;
+                    dy *= 0.98;
                     break;
                 // case RESIDUALAURA: // Smoke effect (small)
                 //     dx *= 0.90;
