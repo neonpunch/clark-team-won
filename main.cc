@@ -1,5 +1,4 @@
 #include <iostream>
-#include <csignal>
 #include "System.h"
 #include "/public/read.h"
 using namespace std;
@@ -8,7 +7,7 @@ int main () {
     System Sys;
     srand(time(0)); // Initialize random seed
 
-    // Add some initial particles to the system
+    // Initial particles to test physics
     //Sys.addParticle(Particle(10, 10, 1, 1, 50, 255, 0, 0, Particle::STREAMER));
     //Sys.addParticle(Particle(20, 20, -1, -1, 50, 0, 255, 0, Particle::BALLISTIC));
     //Sys.addParticle(Particle(30, 30, 0, 0, 10, 0, 0, 255, Particle::FIREWORK));
