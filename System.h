@@ -2,6 +2,7 @@
 #include "Cell.h"
 #include "Graphics.h"
 #include "/public/colors.h"
+#include <climits>
 using namespace std;
 
 class System {
@@ -11,8 +12,6 @@ class System {
     int scrnWidth = 0;
     int scrnHeight = 0;
     int partCount = 0;
-    // srand(time(0)); // Removed from here and added to main()
-    string pSymbol = "*";
     double FPS = 90.;
 
 public: 
@@ -58,6 +57,13 @@ public:
     int get_partCount() const {
         return partCount;
     }
+
+	int get_scrnWidth() const {
+		return scrnWidth;
+	}
+	int get_scrnHeight() const {
+		return scrnHeight;
+	}
 
     void addParticle(Particle p) {
         Cell* temp = new Cell(p, tail, nullptr);

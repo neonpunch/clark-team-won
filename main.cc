@@ -6,7 +6,8 @@ using namespace std;
 int main () {
     System Sys;
     srand(time(0)); // Initialize random seed
-
+	
+	cout << "term columns: \n" << Sys.get_scrnWidth() << endl << "term rows: \n" << Sys.get_scrnHeight() << endl;
     // Initial particles to test physics
     //Sys.addParticle(Particle(10, 10, 1, 1, 50, 255, 0, 0, Particle::STREAMER));
     //Sys.addParticle(Particle(20, 20, -1, -1, 50, 0, 255, 0, Particle::BALLISTIC));
