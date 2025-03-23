@@ -89,19 +89,17 @@ class Particle {
         void Physics() {
             switch (type) {
                 case STREAMER:
-					dx *= 0.98;
-					dy += 0.05;
-					//dx = 0;
-                    //dy += 0.1;
 					break;
                 case BALLISTIC:
-                    dx *= 1.4;
-					dy -= 0.9;
+					dx *= 0.98;
+					dy += 0.05;
                     break;
                 case FIREWORK:
                     dx *= 0.98;
                     dy *= 0.98;
                     break;
+				default:
+					exit(1);
                 // case RESIDUALAURA: // Smoke effect (small)
                 //     dx *= 0.90;
                 //     dy *= 0.90;
