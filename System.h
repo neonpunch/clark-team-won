@@ -12,7 +12,7 @@ class System {
     int scrnWidth = 0;
     int scrnHeight = 0;
     int partCount = 0;
-    double FPS = 90.;
+    double FPS = 60.;
 
 public: 
     System(Cell *new_head = nullptr, Cell *new_tail = nullptr, int new_partCount = 0) {

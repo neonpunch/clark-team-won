@@ -89,8 +89,8 @@ class Particle {
         void Physics() {
             switch (type) {
                 case STREAMER: 
-                    dx *= 0.98;
-                    dy *= 0.98;
+                    dx = 0;
+                    dy += 0.1;
                     break;
                 case BALLISTIC:
                     dy += 0.1;

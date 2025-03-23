@@ -6,8 +6,9 @@ using namespace std;
 int main () {
     System Sys;
     srand(time(0)); // Initialize random seed
-	
-	cout << "term columns: \n" << Sys.get_scrnWidth() << endl << "term rows: \n" << Sys.get_scrnHeight() << endl;
+
+	// Debugger to check what the val of scrnWidth and what the val of scrnHeight is
+	//cout << "term columns: \n" << Sys.get_scrnWidth() << endl << "term rows: \n" << Sys.get_scrnHeight() << endl;
     // Initial particles to test physics
     //Sys.addParticle(Particle(10, 10, 1, 1, 50, 255, 0, 0, Particle::STREAMER));
     //Sys.addParticle(Particle(20, 20, -1, -1, 50, 0, 255, 0, Particle::BALLISTIC));
@@ -80,8 +81,9 @@ int main () {
                     Sys.drawParticle(currNode->particle); // Use the new public method
                 }
                 usleep(100000); // Sleep for 100 milliseconds
-            } 
-				show_cursor(true);
+            }
+			clearscreen();
+			show_cursor(true);
          }
         // Quit
         else if (choice == 0) {
