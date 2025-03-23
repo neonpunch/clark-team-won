@@ -93,7 +93,8 @@ class Particle {
                     dy += 0.1;
                     break;
                 case BALLISTIC:
-                    dy += 0.1;
+                    dx *= 1.5;
+					dy -= 1;
                     break;
                 case FIREWORK:
                     if (lifetime == 0) {
