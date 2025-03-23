@@ -15,6 +15,7 @@ int main () {
     //Sys.addParticle(Particle(30, 30, 0, 0, 10, 0, 0, 255, Particle::FIREWORK));
 
     while (true) {
+		cout << endl;
         int choice = read("1. Run Tests\n2. Add a particle\n3. Draw particles\n4. Run Physics\n5. Run Simulation\n0. Quit\nChoose an option: ");
         cout << endl;
 
@@ -36,6 +37,7 @@ int main () {
             int redIn = read("Enter the particle's red value: ");
             int greenIn = read("Enter the particle's green value: ");
             int blueIn = read("Enter the particle's blue value: ");
+			cout << endl;
             cout << "Select Particle Type: \n1. STREAMER\n2. BALLISTIC\n3. FIREWORK\n";
             int typeChoice = read("Enter choice: ");
             Particle::ParticleType type;
@@ -48,6 +50,7 @@ int main () {
             }
             Particle temp = Particle(xIn, yIn, dxIn, dyIn, lifetimeIn, redIn, greenIn, blueIn, type);
             Sys.addParticle(temp);
+			cout << endl;
             cout << "Added a particle." << endl;
         }
         // Draw Particles
