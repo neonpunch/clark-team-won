@@ -29,8 +29,8 @@ int main () {
         }
         // Add a particle
         else if (choice == 2) {
-            double yIn = read("Enter the particle's x coordinate: "); //Had to swap the var name for this and the below variable
-            double xIn = read("Enter the particle's y coordinate: "); //bc the particle wouldn't print when past halfway towards the right side of the screen.
+            double yIn = read("Enter the particle's y coordinate: "); //Had to swap the var name for this and the below variable
+            double xIn = read("Enter the particle's x coordinate: "); //bc the particle wouldn't print when past halfway towards the right side of the screen.
             double dxIn = read("Enter the particle's x velocity: ");
             double dyIn = read("Enter the particle's y velocity: ");
             int lifetimeIn = read("Enter the particle's lifetime: ");
