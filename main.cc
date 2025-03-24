@@ -29,8 +29,8 @@ int main () {
         }
         // Add a particle
         else if (choice == 2) {
-            double yIn = read("Enter the particle's x coordinate: "); //Had to swap the var name for this and the below variable
-            double xIn = read("Enter the particle's y coordinate: "); //bc the particle wouldn't print when past halfway towards the right side of the screen.
+            double yIn = read("Enter the particle's y coordinate: "); //Had to swap the var name for this and the below variable
+            double xIn = read("Enter the particle's x coordinate: "); //bc the particle wouldn't print when past halfway towards the right side of the screen.
             double dxIn = read("Enter the particle's x velocity: ");
             double dyIn = read("Enter the particle's y velocity: ");
             int lifetimeIn = read("Enter the particle's lifetime: ");
@@ -38,16 +38,18 @@ int main () {
             int greenIn = read("Enter the particle's green value: ");
             int blueIn = read("Enter the particle's blue value: ");
 			cout << endl;
-            cout << "Select Particle Type: \n1. STREAMER\n2. BALLISTIC\n3. FIREWORK\n";
+            cout << "Select Particle Type: \n1. STREAMER\n2. BALLISTIC\n3. FIREWORK\n4. MOSQUITO\n";
             int typeChoice = read("Enter choice: ");
             Particle::ParticleType type;
             if (typeChoice == 1) {
                 type = Particle::STREAMER;
             } else if (typeChoice == 2) {
                 type = Particle::BALLISTIC;
-            } else {
+            } else if (typeChoice == 3) {
                 type = Particle::FIREWORK;
-            }
+            } else {
+				type = Particle::MOSQUITO;
+			}
             Particle temp = Particle(xIn, yIn, dxIn, dyIn, lifetimeIn, redIn, greenIn, blueIn, type);
             Sys.addParticle(temp);
 			cout << endl;
