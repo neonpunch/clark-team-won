@@ -57,3 +57,15 @@ Ishan is responsible for implementing drawRectangle in Graphics.h.
 Milo is responsible for restructuring the sysUpdate loop to implement culling in System.h.
 
 ### /----------------------/
+**PROJECT MILESTONE #4**
+### /----------------------/
+
+Parker is responsible for creating his particle simulation in Parker.h.
+
+Nevan is responsbile for creating his particle simulation in Nevan.h.
+
+Ishan is responsible for creating his particle simulation in Ishan.h.
+
+Milo is responsible for creating his particle simulation in Milo.h and adding the options to main to call all projects.
+
+### /----------------------/

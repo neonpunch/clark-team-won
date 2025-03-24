@@ -9,6 +9,7 @@
 using namespace std;
 
 class Particle {
+<<<<<<< HEAD
 	public:
 		double x, y;    // Particle Initial Position
 		double dx, dy;  // Particle Velocity
@@ -18,6 +19,17 @@ class Particle {
 			STREAMER, BALLISTIC, FIREWORK, MOSQUITO
 		};
 		ParticleType type;
+=======
+    public:
+        double x, y;    // Particle Initial Position
+        double dx, dy;  // Particle Velocity
+        int lifetime;   // Particle Lifespan
+        int r, g, b;    // Particle Color
+        enum ParticleType {
+            STREAMER, BALLISTIC, FIREWORK, MOSQUITO
+        };
+        ParticleType type;
+>>>>>>> refs/remotes/origin/main
 
 		Particle(double new_x = 0, double new_y = 0, double new_dx = 0, double new_dy = 0, int newLifetime = 0, int newR = 5, int newG = 5, int newB = 5, ParticleType newType = FIREWORK)
 			: x(new_x), y(new_y), dx(new_dx), dy(new_dy), lifetime(newLifetime), r(newR), g(newG), b(newB), type(newType) {
@@ -93,6 +105,7 @@ class Particle {
 				case BALLISTIC:
 					dx *= 0.98;
 					dy += 0.05;
+<<<<<<< HEAD
 					break;
 				case FIREWORK:
 					dx *= 0.98;
@@ -113,4 +126,26 @@ class Particle {
 			y += dy;
 			lifetime--;
 		}
+=======
+                    break;
+                case FIREWORK:
+                    dx *= 0.98;
+                    dy *= 0.98;
+                    break;
+				case MOSQUITO:
+					dx += (rand() % 3) - 1;
+					dy += (rand() % 3) - 1;
+					if (dx > 1.5) dx = 1.5;
+					if (dx < -1.5) dx = -1.5;
+					if (dy > 1.5) dy = 1.5;
+					if (dy < -1.5) dy = -1.5;
+					break;
+				default:
+					exit(1);
+            }
+            x += dx;
+            y += dy;
+            lifetime--;
+        }
+>>>>>>> refs/remotes/origin/main
 };
