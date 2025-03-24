@@ -15,7 +15,7 @@ class Particle {
         int lifetime;   // Particle Lifespan
         int r, g, b;    // Particle Color
         enum ParticleType {
-            STREAMER, BALLISTIC, FIREWORK //, RESIDUALAURA
+            STREAMER, BALLISTIC, FIREWORK, MOSQUITO
         };
         ParticleType type;
 
@@ -98,15 +98,16 @@ class Particle {
                     dx *= 0.98;
                     dy *= 0.98;
                     break;
+				case MOSQUITO:
+					dx += (rand() % 3) - 1;
+					dy += (rand() % 3) - 1;
+					if (dx > 1.5) dx = 1.5;
+					if (dx < -1.5) dx = -1.5;
+					if (dy > 1.5) dy = 1.5;
+					if (dy < -1.5) dy = -1.5;
+					break;
 				default:
 					exit(1);
-                // case RESIDUALAURA: // Smoke effect (small)
-                //     dx *= 0.90;
-                //     dy *= 0.90;
-                //     x += ((rand() % 3) - 1) * 0.1;
-                //     y += dy;
-                //     lifetime -= 2;
-                //     break;
             }
             x += dx;
             y += dy;
