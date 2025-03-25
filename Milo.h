@@ -1,3 +1,4 @@
+#pragma once
 #include "System.h"
 // Milo's destruction bomb project
 
@@ -35,11 +36,11 @@ void BitBomb(System& system) {
         system.sysUpdate();
 
         // Check for particle explosions and destroy wall particles in vicinity
-        for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->get_next()) {
+        for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->getNext()) {
             if (curr->getParticle().get_type() == Particle::FIREWORK && curr->getParticle().get_lifetime() == 0) {
                 double exX = curr->getParticle().get_x();
                 double exY = curr->getParticle().get_y();
-                for (Cell* wallCurr = system.get_head(); wallCurr != nullptr; wallCurr = wallCurr->get_next()) {
+                for (Cell* wallCurr = system.get_head(); wallCurr != nullptr; wallCurr = wallCurr->getNext()) {
                     double wx = wallCurr->getParticle().get_x();
                     double wy = wallCurr->getParticle().get_y();
                     if (sqrt(pow(wx - exX, 2) + pow(wy - exY, 2)) < 10.0) { // Radius of effect
@@ -51,7 +52,7 @@ void BitBomb(System& system) {
 
         // Check if a set amount of the wall has been destroyed
         int destroyedCount = 0;
-        for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->get_next()) {
+        for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->getNext()) {
             if (curr->getParticle().get_lifetime() == 0 && curr->getParticle().get_type() == Particle::STREAMER) {
                 destroyedCount++;
             }
@@ -62,7 +63,7 @@ void BitBomb(System& system) {
             for (Particle& artParticle : catArtParticles) {
                 system.addParticle(artParticle);
             }
-            for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->get_next()) {
+            for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->getNext()) {
                 if (curr->getParticle().get_type() == Particle::STREAMER) {
                     curr->getParticle().set_lifetime(0); // Destroy all wall particles
                 }
