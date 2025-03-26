@@ -101,7 +101,7 @@ int main () {
 			//call nevan project
 		}
 		else if (choice == 8) {
-			//call ishan project
+			//IA::makeFirework(Sys);
 		}
 		else if (choice == 9) {
 			BitBomb(Sys);

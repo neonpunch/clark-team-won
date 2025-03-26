@@ -39,14 +39,14 @@ void BitBomb(System& system) {
     
     auto last_time = high_resolution_clock::now();
 
+    cout << "FPS: " << 1/delta_t << "                  " << endl;
+    cout << "Q to quit" << endl;
     while (true) {
         auto cur_time = high_resolution_clock::now();
         duration<double> diff = cur_time - last_time;
         delta_t = diff.count();
         movecursor(ROWS, 0);
         setbgcolor(0, 0, 0);
-        cout << "FPS: " << 1/delta_t << "                  " << endl;
-        cout << "Q to quit" << endl;
         last_time = cur_time;
 
         int ch = quick_read();
