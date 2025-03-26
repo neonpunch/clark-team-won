@@ -122,7 +122,3 @@ void BitBomb(System& system) {
         }
     }
 }
-            break; // Exit the loop after the final explosion
-        }
-    }
-}
