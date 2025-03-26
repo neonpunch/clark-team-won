@@ -99,6 +99,8 @@ class Particle {
                     dy *= 0.98;
                     break;
 				case MOSQUITO:
+					if (dx == 0) dx = ((rand() % 3) - 1) * 0.5;
+					if (dy == 0) dy = ((rand() % 3) - 1) * 0.5;
 					dx += (rand() % 3) - 1;
 					dy += (rand() % 3) - 1;
 					if (dx > 1.5) dx = 1.5;
