@@ -66,35 +66,16 @@ void BitBomb(System& system) {
     clearscreen();
 
     const auto [ROWS, COLS] = get_terminal_size();
-
-<<<<<<< HEAD
-    for (int y = 0; y < ROWS; y++) {
-        for (int x = 0; x < COLS; x++) {
-            Particle wallParticle(x, y, 0, 0, INT_MAX, 0, 0, 255, Particle::STREAMER);
-            system.addParticle(wallParticle);
-            draw_particle(wallParticle);
-        }
-    }
-
-    vector<Particle> catArtParticles;
-    for (int y = ROWS / 2 - 5; y < ROWS / 2 + 5; y++) {
-        for (int x = COLS / 2 - 5; x < COLS / 2 + 5; x++) {
-            Particle artParticle(x, y, 0, 0, INT_MAX, 255, 165, 0, Particle::BALLISTIC);
-            catArtParticles.push_back(artParticle);
-        }
-    }
-
-=======
->>>>>>> refs/remotes/origin/main
-    auto last_time = high_resolution_clock::now();
+    
+	auto last_time = high_resolution_clock::now();
 
     while (true) {
         auto cur_time = high_resolution_clock::now();
         duration<double> diff = cur_time - last_time;
         delta_t = diff.count();
         movecursor(ROWS, 0);
-        setbgcolor(0, 0, 0);
-        cout << "FPS: " << 1/delta_t << "                  " << endl;
+     //   setbgcolor(0, 0, 0);
+//        cout << "FPS: " << 1/delta_t << "                  " << endl;
         cout << "Q to quit" << endl;
         last_time = cur_time;
 
@@ -116,57 +97,6 @@ void BitBomb(System& system) {
 
         system.sysUpdate();
 
-<<<<<<< HEAD
-        for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->getNext()) {
-            Particle tempParticle = curr->getParticle();
-            if (tempParticle.get_type() == Particle::FIREWORK && tempParticle.get_lifetime() == 0) {
-                double exX = tempParticle.get_x();
-                double exY = tempParticle.get_y();
-                for (Cell* wallCurr = system.get_head(); wallCurr != nullptr; wallCurr = wallCurr->getNext()) {
-                    Particle tempWallParticle = wallCurr->getParticle();
-                    double wx = tempWallParticle.get_x();
-                    double wy = tempWallParticle.get_y();
-                    if (sqrt(pow(wx - exX, 2) + pow(wy - exY, 2)) < 10.0) {
-                        wallCurr->getParticle().set_lifetime(0);
-                        draw_particle(wallCurr->getParticle());
-                    }
-                }
-            }
-        }
-
-        int destroyedCount = 0;
-        for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->getNext()) {
-            Particle tempParticle = curr->getParticle();
-            if (tempParticle.get_lifetime() == 0 && tempParticle.get_type() == Particle::STREAMER) {
-                destroyedCount++;
-            }
-        }
-
-        if (destroyedCount > (ROWS * COLS / 2)) {
-            for (Particle& artParticle : catArtParticles) {
-                system.addParticle(artParticle);
-                draw_particle(artParticle);
-            }
-            for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->getNext()) {
-                Particle tempParticle = curr->getParticle();
-                if (tempParticle.get_type() == Particle::STREAMER) {
-                    curr->getParticle().set_lifetime(0);
-                    draw_particle(curr->getParticle());
-                }
-            }
-            for (int i = 0; i < 50; i++) {
-                double angle = (rand() % 360) * (numbers::pi / 180.0);
-                double speed = 2.0;
-                double new_dx = speed * cos(angle);
-                double new_dy = speed * sin(angle);
-                Particle finalExplosionParticle(COLS / 2, ROWS / 2, new_dx, new_dy, INT_MAX, rand() % 256, rand() % 256, rand() % 256, Particle::FIREWORK);
-                system.addParticle(finalExplosionParticle);
-                draw_particle(finalExplosionParticle);
-            }
-            break;
-        }
-=======
->>>>>>> refs/remotes/origin/main
         usleep(100000); // Sleep for 100 milliseconds
     }
 }
