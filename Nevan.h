@@ -14,12 +14,7 @@
 // But when the world needed smoke
 // It vanished
 
-<<<<<<< HEAD
-=======
 void bug_zapper(System& slurp){
-
->>>>>>> refs/remotes/origin/main
-void bug_zapper(){
 	const auto [rows, cols] = get_terminal_size();
 	int zapperWidth = cols / 8;
 	int zapperHeight = rows / 2;
