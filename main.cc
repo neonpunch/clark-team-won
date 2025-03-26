@@ -101,7 +101,9 @@ int main () {
 			//call nevan project
 		}
 		else if (choice == 8) {
-			//IA::makeFirework(Sys);
+			IA project;
+			project.makeFirework(Sys);
+			project.sim(Sys);
 		}
 		else if (choice == 9) {
 			BitBomb(Sys);
