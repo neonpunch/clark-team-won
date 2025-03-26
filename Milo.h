@@ -27,6 +27,13 @@ void bailout() {
     int booya = system("clear");
 }
 
+struct Firework {
+    Particle particle;
+    int explosion_y; // Explosion point
+
+    Firework(Particle p, int ey) : particle(p), explosion_y(ey) {}
+};
+
 void BitBomb(System& system) {
     atexit(bailout);
     show_cursor(false);
@@ -42,7 +49,7 @@ void BitBomb(System& system) {
     cout << "FPS: " << 1/delta_t << "                  " << endl;
     cout << "Q to quit" << endl;
     
-    vector<Particle> fireworks;
+    vector<Firework> fireworks;
     
     while (true) {
         auto cur_time = high_resolution_clock::now();
@@ -65,16 +72,16 @@ void BitBomb(System& system) {
             int firework_y = ROWS - 1; // Start from the bottom of the screen
             int explosion_y = rand() % (ROWS - 5); // Random explosion point within the screen (ensuring it doesn't hit the top)
             Particle explosiveParticle(firework_x, firework_y, 0, -1, 100, 255, 0, 0, Particle::FIREWORK); // Move upwards
-            fireworks.push_back(explosiveParticle);
+            fireworks.emplace_back(explosiveParticle, explosion_y);
             system.addParticle(explosiveParticle);
         }
 
         // Update all particles
-        vector<Particle> new_fireworks;
+        vector<Firework> new_fireworks;
         for (auto& firework : fireworks) {
-            if (firework.get_y() > firework.get_explosion_y()) {
-                firework.set_y(firework.get_y() - 1);
-                system.drawParticle(firework);
+            if (firework.particle.get_y() > firework.explosion_y) {
+                firework.particle.set_y(firework.particle.get_y() - 1);
+                system.drawParticle(firework.particle);
                 new_fireworks.push_back(firework);
             } else {
                 // Explosion in rainbow colors
@@ -83,7 +90,7 @@ void BitBomb(System& system) {
                     double speed = 2.0;
                     double new_dx = speed * cos(angle);
                     double new_dy = speed * sin(angle);
-                    Particle explosionParticle(firework.get_x(), firework.get_y(), new_dx, new_dy, INT_MAX, rand() % 256, rand() % 256, rand() % 256, Particle::FIREWORK);
+                    Particle explosionParticle(firework.particle.get_x(), firework.explosion_y, new_dx, new_dy, INT_MAX, rand() % 256, rand() % 256, rand() % 256, Particle::FIREWORK);
                     system.addParticle(explosionParticle);
                     system.drawParticle(explosionParticle);
                 }
