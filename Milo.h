@@ -41,6 +41,9 @@ void BitBomb(System& system) {
 
     cout << "FPS: " << 1/delta_t << "                  " << endl;
     cout << "Q to quit" << endl;
+    
+    vector<Particle> fireworks;
+    
     while (true) {
         auto cur_time = high_resolution_clock::now();
         duration<double> diff = cur_time - last_time;
@@ -62,26 +65,31 @@ void BitBomb(System& system) {
             int firework_y = ROWS - 1; // Start from the bottom of the screen
             int explosion_y = rand() % (ROWS / 2); // Random explosion point within the screen
             Particle explosiveParticle(firework_x, firework_y, 0, -1, 100, 255, 0, 0, Particle::FIREWORK); // Move upwards
+            fireworks.push_back(explosiveParticle);
             system.addParticle(explosiveParticle);
+        }
 
-            // Move the firework up and then explode at the random explosion point
-            while (explosiveParticle.get_y() > explosion_y) {
-                explosiveParticle.set_y(explosiveParticle.get_y() - 1);
-                system.drawParticle(explosiveParticle);
-                usleep(50000); // Sleep for 50 milliseconds
-            }
-
-            // Explosion in rainbow colors
-            for (int i = 0; i < 360; i += 30) {
-                double angle = i * (numbers::pi / 180.0);
-                double speed = 2.0;
-                double new_dx = speed * cos(angle);
-                double new_dy = speed * sin(angle);
-                Particle explosionParticle(explosiveParticle.get_x(), explosion_y, new_dx, new_dy, INT_MAX, rand() % 256, rand() % 256, rand() % 256, Particle::FIREWORK);
-                system.addParticle(explosionParticle);
-                system.drawParticle(explosionParticle);
+        // Update all particles
+        vector<Particle> new_fireworks;
+        for (auto& firework : fireworks) {
+            if (firework.get_y() > 0) {
+                firework.set_y(firework.get_y() - 1);
+                system.drawParticle(firework);
+                new_fireworks.push_back(firework);
+            } else {
+                // Explosion in rainbow colors
+                for (int i = 0; i < 360; i += 30) {
+                    double angle = i * (numbers::pi / 180.0);
+                    double speed = 2.0;
+                    double new_dx = speed * cos(angle);
+                    double new_dy = speed * sin(angle);
+                    Particle explosionParticle(firework.get_x(), firework.get_y(), new_dx, new_dy, INT_MAX, rand() % 256, rand() % 256, rand() % 256, Particle::FIREWORK);
+                    system.addParticle(explosionParticle);
+                    system.drawParticle(explosionParticle);
+                }
             }
         }
+        fireworks = new_fireworks;
 
         system.sysUpdate();
         usleep(100000); // Sleep for 100 milliseconds
