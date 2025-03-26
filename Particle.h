@@ -9,17 +9,6 @@
 using namespace std;
 
 class Particle {
-<<<<<<< HEAD
-	public:
-		double x, y;    // Particle Initial Position
-		double dx, dy;  // Particle Velocity
-		int lifetime;   // Particle Lifespan
-		int r, g, b;    // Particle Color
-		enum ParticleType {
-			STREAMER, BALLISTIC, FIREWORK, MOSQUITO
-		};
-		ParticleType type;
-=======
     public:
         double x, y;    // Particle Initial Position
         double dx, dy;  // Particle Velocity
@@ -29,7 +18,6 @@ class Particle {
             STREAMER, BALLISTIC, FIREWORK, MOSQUITO, GAS
         };
         ParticleType type;
->>>>>>> refs/remotes/origin/main
 
 		Particle(double new_x = 0, double new_y = 0, double new_dx = 0, double new_dy = 0, int newLifetime = 0, int newR = 5, int newG = 5, int newB = 5, ParticleType newType = FIREWORK)
 			: x(new_x), y(new_y), dx(new_dx), dy(new_dy), lifetime(newLifetime), r(newR), g(newG), b(newB), type(newType) {
@@ -105,7 +93,6 @@ class Particle {
 				case BALLISTIC:
 					dx *= 0.98;
 					dy += 0.05;
-<<<<<<< HEAD
 					break;
 				case FIREWORK:
 					dx *= 0.98;
@@ -126,6 +113,7 @@ class Particle {
 			y += dy;
 			lifetime--;
 		}
+<<<<<<< Updated upstream
 =======
                     break;
                 case FIREWORK:
@@ -155,4 +143,6 @@ class Particle {
             lifetime--;
         }
 >>>>>>> refs/remotes/origin/main
+=======
+>>>>>>> Stashed changes
 };
