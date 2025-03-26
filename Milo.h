@@ -65,7 +65,7 @@ void BitBomb(System& system) {
 
     for (int y = 0; y < ROWS; y++) {
         for (int x = 0; x < COLS; x++) {
-            Particle wallParticle(x, y, 0, 0, INT_MAX, 255, 255, 255, Particle::STREAMER);
+            Particle wallParticle(x, y, 0, 0, INT_MAX, 0, 0, 255, Particle::STREAMER);
             system.addParticle(wallParticle);
             draw_particle(wallParticle);
         }
@@ -139,18 +139,6 @@ void BitBomb(System& system) {
             }
             break;
         }
-<<<<<<< HEAD
-        // Draw the particles on the screen
-        clearscreen();
-        for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->getNext()) {
-            Particle temp = curr->getParticle();
-            movecursor(temp.get_y(), temp.get_x());
-            setbgcolor(temp.get_r(), temp.get_g(), temp.get_b());
-            cout << " ";
-        }
-=======
-
->>>>>>> refs/remotes/origin/main
         usleep(100000); // Sleep for 100 milliseconds
     }
 }
