@@ -107,11 +107,8 @@ class Particle {
 					if (dy < -1.5) dy = -1.5;
 					break;
 				case GAS:
-					dx = ((rand() % 3) - 1);
+					dx = ((rand() % 3) - 1) / 2;
 					dy = -(abs(dy * 1.02));
-					g += ((rand() % 12) - 6);
-					r = g / 10;
-					b = g / 5;
 					break;
 				default:
 					exit(1);
