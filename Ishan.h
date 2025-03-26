@@ -17,18 +17,18 @@ void makeFirework(System& sys) {
 	int red = 0;
 	int green = 0;
 	int blue = 0;
-	cout << "enter" << endl;
+	cout << "enter the x position" << endl;
 	cin >> xIn;
-	cout << "enter" << endl;
+	cout << "enter the y position" << endl;
 	cin >> yIn;
-	cout << "enter" << endl;
+	cout << "enter the red color (r,g,b)" << endl;
 	cin >> red;
-	cout << "enter" << endl;
+	cout << "enter the green color (r,g,b)" << endl;
 	cin >> green;
-	cout << "enter" << endl;
+	cout << "enter the blue color (r,g,b)" << endl;
 	cin >> blue;
 	int lifetimeIn = 100;
-	cout << "Enter" << endl;
+	cout << "Enter the lifetime" << endl;
 	cin >> lifetimeIn;
 	for (int i = 0; i < 100; ++i) {
 	  double dxIn = (rand() % 200 - 100) / static_cast<double>(50);
