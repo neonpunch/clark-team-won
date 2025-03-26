@@ -11,6 +11,7 @@ int main () {
     System Sys;
     srand(time(0)); // Initialize random seed
 
+
 	// Debugger to check what the val of scrnWidth and what the val of scrnHeight is
 	//cout << "term columns: \n" << Sys.get_scrnWidth() << endl << "term rows: \n" << Sys.get_scrnHeight() << endl;
     // Initial particles to test physics
@@ -101,8 +102,7 @@ int main () {
 		}
 		else if (choice == 7) {
 			clearscreen();
-			bug_zapper(Sys);
-			clearscreen();
+			bane_of_Saitama(Sys);
 		}
 		else if (choice == 8) {
 			clearscreen();
