@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <cassert>
+
 using namespace std;
 using namespace chrono;
 
@@ -34,12 +35,14 @@ void mouse_handler(int row, int col) {
     click_row = row;
     click_col = col;
     mouse_down = true;
+    cout << "Mouse down at (" << click_col << ", " << click_row << ")" << endl;
 }
 
 void mouse_handler2(int row, int col) {
     click_row = row;
     click_col = col;
     mouse_down = false;
+    cout << "Mouse up at (" << click_col << ", " << click_row << ")" << endl;
 }
 
 void draw_particle(const Particle& p) {
