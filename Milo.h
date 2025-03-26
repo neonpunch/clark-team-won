@@ -15,7 +15,6 @@ using namespace std;
 using namespace chrono;
 
 double delta_t = 0.01;
-bool half_destroyed = false;
 
 // Cleanup function
 void bailout() {
@@ -45,10 +44,11 @@ void BitBomb(System& system) {
     show_cursor(false);
     set_raw_mode(true);
     set_mouse_mode(true);
-    setbgcolor(100, 100, 100);
+    setbgcolor(0, 0, 0);
     clearscreen();
 
     const auto [ROWS, COLS] = get_terminal_size();
+<<<<<<< HEAD
     
     // Create wall of particles
     for (int y = 0; y < ROWS; y++) {
@@ -57,15 +57,18 @@ void BitBomb(System& system) {
             system.addParticle(wallParticle);
             system.drawParticle(wallParticle);
         }
+=======
+    cout << "Terminal size: " << ROWS << " rows, " << COLS << " columns" << endl;
+
+    // Create cat artwork
+    vector<Particle> catArtParticles = create_cat_art(ROWS, COLS);
+    for (Particle& artParticle : catArtParticles) {
+        system.addParticle(artParticle);
+        system.draw_particle(artParticle);
+>>>>>>> refs/remotes/origin/main
     }
 
-    // Create cat artwork behind the wall
-    vector<Particle> catArtParticles = create_cat_art(ROWS, COLS);
-
     auto last_time = high_resolution_clock::now();
-    int destroyedCount = 0;
-    int totalParticles = ROWS * COLS;
-    int halfParticles = totalParticles / 2;
 
     while (true) {
         auto cur_time = high_resolution_clock::now();
@@ -84,6 +87,7 @@ void BitBomb(System& system) {
             break;
         }
 
+<<<<<<< HEAD
         if (half_destroyed && destroyedCount > halfParticles) {
             // Final big explosion
             for (int i = 0; i < 50; i++) {
@@ -103,11 +107,18 @@ void BitBomb(System& system) {
 
         // Random fireworks
         if (rand() % 100 < 5) { // 5% chance every frame
+=======
+        // Fireworks at a consistent rate
+        if (rand() % 10 == 0) { // Consistent rate
+>>>>>>> refs/remotes/origin/main
             int firework_x = rand() % COLS;
             int firework_y = ROWS - 1; // Start from the bottom of the screen
             Particle explosiveParticle(firework_x, firework_y, 0, -1, 100, 255, 0, 0, Particle::FIREWORK); // Move upwards
             system.addParticle(explosiveParticle);
+<<<<<<< HEAD
             system.drawParticle(explosiveParticle);
+=======
+>>>>>>> refs/remotes/origin/main
 
             // Move the firework up and then explode
             while (explosiveParticle.get_y() > 0) {
@@ -116,6 +127,7 @@ void BitBomb(System& system) {
                 usleep(50000); // Sleep for 50 milliseconds
             }
 
+<<<<<<< HEAD
             // Destroy part of the wall
             for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->getNext()) {
                 Particle tempParticle = curr->getParticle();
@@ -124,11 +136,18 @@ void BitBomb(System& system) {
                     system.drawParticle(tempParticle);
                     destroyedCount++;
                 }
+=======
+            // Explosion in rainbow colors
+            for (int i = 0; i < 360; i += 30) {
+                double angle = i * (numbers::pi / 180.0);
+                double speed = 2.0;
+                double new_dx = speed * cos(angle);
+                double new_dy = speed * sin(angle);
+                Particle explosionParticle(explosiveParticle.get_x(), explosiveParticle.get_y(), new_dx, new_dy, INT_MAX, rand() % 256, rand() % 256, rand() % 256, Particle::FIREWORK);
+                system.addParticle(explosionParticle);
+                system.draw_particle(explosionParticle);
+>>>>>>> refs/remotes/origin/main
             }
-        }
-
-        if (destroyedCount > halfParticles) {
-            half_destroyed = true;
         }
 
         system.sysUpdate();
