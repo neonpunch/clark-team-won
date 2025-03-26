@@ -1,4 +1,8 @@
 #include <iostream>
+#include "Ishan.h"
+#include "Milo.h"
+#include "Parker.h"
+#include "Nevan.h"
 #include "System.h"
 #include "/public/read.h"
 using namespace std;
@@ -16,7 +20,7 @@ int main () {
 
     while (true) {
 		cout << endl;
-        int choice = read("1. Run Tests\n2. Add a particle\n3. Draw particles\n4. Run Physics\n5. Run Simulation\n0. Quit\nChoose an option: ");
+        int choice = read("1. Run Tests\n2. Add Particle\n3. Draw Particles\n4. Run Physics\n5. Run Sim\n6. Run Parker.h\n7. Run Nevan.h\n8. Run Ishan.h\n9. Run Milo.h\n0. Quit\nChoose an option: ");
         cout << endl;
 
         // Run Tests
@@ -90,6 +94,18 @@ int main () {
 			clearscreen();
 			show_cursor(true);
          }
+		else if (choice == 6) {
+			//call parker project
+		}
+		else if (choice == 7) {
+			//call nevan project
+		}
+		else if (choice == 8) {
+			//call ishan project
+		}
+		else if (choice == 9) {
+			BitBomb(Sys);
+		}
         // Quit
         else if (choice == 0) {
             cout << "Quitting." << endl;
