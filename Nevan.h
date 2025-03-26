@@ -8,7 +8,7 @@
 // Master of all four physics
 // But when the world needed smoke
 // It vanished
-
+/*
 void bug_zapper(){
 	const auto [rows, cols] = get_terminal_size();
 	int zapperWidth = cols / 8;
@@ -108,4 +108,4 @@ void zapUpdate() { // Modified sysUpdate to avoid Merge conflicts and call confl
 		}
 		currNode = nextNode; // Move to the next node
 	}
-}
+}*/

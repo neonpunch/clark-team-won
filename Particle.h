@@ -94,28 +94,6 @@ class Particle {
 					dx *= 0.98;
 					dy += 0.05;
 					break;
-				case FIREWORK:
-					dx *= 0.98;
-					dy *= 0.98;
-					break;
-				case MOSQUITO: // Erratic moving particle
-					dx += (rand() % 3) - 1;
-					dy += (rand() % 3) - 1; 
-					if (dx > 5.) dx = 5.;
-					if (dx < -5.) dx = -5.;
-					if (dy > 5.) dy = 5.;
-					if (dy < -5.) dy = -5.;
-					break;
-				default:
-					exit(1);
-			}
-			x += dx;
-			y += dy;
-			lifetime--;
-		}
-<<<<<<< Updated upstream
-=======
-                    break;
                 case FIREWORK:
                     dx *= 0.98;
                     dy *= 0.98;
@@ -142,7 +120,4 @@ class Particle {
             y += dy;
             lifetime--;
         }
->>>>>>> refs/remotes/origin/main
-=======
->>>>>>> Stashed changes
 };

@@ -34,7 +34,7 @@ struct Firework {
     Firework(Particle p, int ey) : particle(p), explosion_y(ey) {}
 };
 
-void BitBomb(System& system) {
+void BigBayBoom(System& system) {
     atexit(bailout);
     show_cursor(false);
     set_raw_mode(true);
@@ -46,8 +46,7 @@ void BitBomb(System& system) {
     
     auto last_time = high_resolution_clock::now();
 
-    cout << "FPS: " << 1/delta_t << "                  " << endl;
-    cout << "Q to quit" << endl;
+    cout << "'q' to quit" << endl;
     
     vector<Firework> fireworks;
     
@@ -60,9 +59,7 @@ void BitBomb(System& system) {
         last_time = cur_time;
 
         int ch = quick_read();
-        if (ch == ERR) {
-            // Do nothing
-        } else if (ch == 'q') {
+        if (ch == 'q') {
             break;
         }
 
@@ -71,7 +68,7 @@ void BitBomb(System& system) {
             int firework_x = rand() % COLS;
             int firework_y = ROWS - 1; // Start from the bottom of the screen
             int explosion_y = rand() % (ROWS - 5); // Random explosion point within the screen (ensuring it doesn't hit the top)
-            Particle explosiveParticle(firework_x, firework_y, 0, -1, 100, 255, 0, 0, Particle::FIREWORK); // Move upwards
+            Particle explosiveParticle(firework_x, firework_y, 0, -1, 100, 0, 0, 0, Particle::FIREWORK); // Move upwards
             fireworks.emplace_back(explosiveParticle, explosion_y);
             system.addParticle(explosiveParticle);
         }
