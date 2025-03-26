@@ -17,6 +17,10 @@ void makeFirework(System& sys) {
 	int red = 0;
 	int green = 0;
 	int blue = 0;
+//	int sw = 0;
+//	int sh = 0;
+int maxx = sys.getWidth();
+int maxy = sys.getHeight();
 	cout << "enter the x position" << endl;
 	cin >> xIn;
 	cout << "enter the y position" << endl;
@@ -30,6 +34,10 @@ void makeFirework(System& sys) {
 	int lifetimeIn = 100;
 	cout << "Enter the lifetime" << endl;
 	cin >> lifetimeIn;
+	if (xIn < 0) xIn = 0;
+	if (xIn >= maxx) xIn = maxx - 1;
+	if (yIn < 0) yIn = 0;
+	if yIn >= maxy) yIn = maxY - 1;
 	for (int i = 0; i < 100; ++i) {
 	  double dxIn = (rand() % 200 - 100) / static_cast<double>(50);
 	  double dyIn = (rand() % 200 - 100) / static_cast<double>(50);
