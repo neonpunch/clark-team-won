@@ -3,29 +3,33 @@
 //Parker's gas project
 
 static void GasClouds(System &Controller) {
-	Controller.set_FPS(10.);
+	Controller.set_FPS(12.);
 	show_cursor(false);
-	int verticalThird = Controller.get_scrnHeight() / 3;
-	int horizontalFifth = Controller.get_scrnWidth() / 5;
+	int verticalFourth = Controller.get_scrnHeight() / 4;
+	int horizontalEighth = Controller.get_scrnWidth() / 8;
 	//make all the particles at random parts near the bottom, maybe make smokestacks another day 
-	for (int i = 0; i < 120; i++) {
+	for (int i = 0; i < 400; i++) {
 		Controller.addParticle(
 			Particle( 
-			horizontalFifth + (rand() % (3 * horizontalFifth)), //x
-			(2 * verticalThird) + (rand() % verticalThird), //y
+			horizontalEighth + (rand() % (6 * horizontalEighth)), //x
+			(3 * verticalFourth) + (rand() % verticalFourth), //y
 			0, //dx
-			(((rand() % 5) + 3) / 5.), //dy
+			(((rand() % 5) + 1.5) / 5.), //dy
 			120, //lifetime
-			170 + (rand() % 56) - 28, //red
-			200 + (rand() % 56) - 28, //green
-			200 + (rand() % 56) - 28, //blue
+			110 + (rand() % 151) - 75, //red
+			140 + (rand() % 101) - 55, //green
+			125 + (rand() % 111) - 55, //blue
 			Particle::GAS)); //type
 		clearscreen();
 		Controller.sysUpdate();
 		usleep(1000000/(Controller.get_FPS()));
 	}
 
-	while (Controller.get_head()) Controller.sysUpdate();
+	while (Controller.get_head()) {
+		clearscreen();
+		Controller.sysUpdate();
+		usleep(1000000/(Controller.get_FPS()));
+	}
 
 	Controller.set_FPS(60.);
 	clearscreen();
