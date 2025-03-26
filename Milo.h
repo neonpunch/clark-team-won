@@ -63,7 +63,7 @@ void BitBomb(System& system) {
         if (rand() % 10 == 0) { // Consistent rate
             int firework_x = rand() % COLS;
             int firework_y = ROWS - 1; // Start from the bottom of the screen
-            int explosion_y = rand() % (ROWS / 2); // Random explosion point within the screen
+            int explosion_y = rand() % (ROWS - 5); // Random explosion point within the screen (ensuring it doesn't hit the top)
             Particle explosiveParticle(firework_x, firework_y, 0, -1, 100, 255, 0, 0, Particle::FIREWORK); // Move upwards
             fireworks.push_back(explosiveParticle);
             system.addParticle(explosiveParticle);
@@ -72,7 +72,7 @@ void BitBomb(System& system) {
         // Update all particles
         vector<Particle> new_fireworks;
         for (auto& firework : fireworks) {
-            if (firework.get_y() > 0) {
+            if (firework.get_y() > firework.get_explosion_y()) {
                 firework.set_y(firework.get_y() - 1);
                 system.drawParticle(firework);
                 new_fireworks.push_back(firework);
