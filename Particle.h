@@ -26,7 +26,7 @@ class Particle {
         int lifetime;   // Particle Lifespan
         int r, g, b;    // Particle Color
         enum ParticleType {
-            STREAMER, BALLISTIC, FIREWORK, MOSQUITO
+            STREAMER, BALLISTIC, FIREWORK, MOSQUITO, GAS
         };
         ParticleType type;
 >>>>>>> refs/remotes/origin/main
@@ -139,6 +139,13 @@ class Particle {
 					if (dx < -1.5) dx = -1.5;
 					if (dy > 1.5) dy = 1.5;
 					if (dy < -1.5) dy = -1.5;
+					break;
+				case GAS:
+					dx = ((rand() % 3) - 1);
+					dy = -(abs(dy * 1.02));
+					g += ((rand() % 12) - 6);
+					r = g / 10;
+					b = g / 5;
 					break;
 				default:
 					exit(1);

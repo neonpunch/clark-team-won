@@ -1,3 +1,4 @@
+#pragma once
 #include "Particle.h"
 #include "Cell.h"
 #include "Graphics.h"
