@@ -1,6 +1,11 @@
 #pragma once
 #include "System.h"
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+#include <numbers>
+#include <climits>
 #include <unistd.h>
 
 
@@ -8,7 +13,9 @@
 // Master of all four physics
 // But when the world needed smoke
 // It vanished
-/*
+
+void bug_zapper(System& slurp){
+
 void bug_zapper(){
 	const auto [rows, cols] = get_terminal_size();
 	int zapperWidth = cols / 8;
@@ -21,46 +28,64 @@ void bug_zapper(){
 
 		for (int l = 0; l < zapperHeight; l++){
 			Particle zapperElectric(x, temp_y, 0, 0, INT_MAX, 125, 249, 255, Particle::STREAMER); // Makes Solid Blue Electricity for Zapper
-			addParticle(zapperElectric);
-			drawParticle(zapperElectric);
+			slurp.addParticle(zapperElectric);
+			slurp.drawParticle(zapperElectric);
 			temp_y += 1;
 		}
 		x += 1;
 	}
 	for (int i = 0; i < zapperWidth; i++){ // Sets X Frames
 		Particle topFrame(x + i, y, 0, 0, INT_MAX, 192, 192, 192, Particle::STREAMER);
-		addParticle(topFrame);
-		drawParticle(topFrame);
+		slurp.addParticle(topFrame);
+		slurp.drawParticle(topFrame);
 
 		Particle botFrame(x + i, y + zapperHeight - 1, 0, 0, INT_MAX, 192, 192, 192, Particle::STREAMER);
-		addParticle(botFrame);
-		drawParticle(botFrame);
+		slurp.addParticle(botFrame);
+		slurp.drawParticle(botFrame);
 	}
 	for (int j = 0; j < zapperHeight; j++){ // Sets Y Frames
 		Particle leftFrame(x, y + j, 0, 0, INT_MAX, 192, 192, 192,Particle::STREAMER);
-		addParticle(leftFrame);
-		drawParticle(leftFrame);
+		slurp.addParticle(leftFrame);
+		slurp.drawParticle(leftFrame);
 
 		Particle rightFrame(x + zapperWidth - 1, y + j, 0, 0, INT_MAX, 192, 192, 192, Particle::STREAMER);
-		addParticle(rightFrame);
-		drawParticle(rightFrame);
+		slurp.addParticle(rightFrame);
+		slurp.drawParticle(rightFrame);
 	}
+	Particle Bzzzt(rand() % cols, rand() % rows, 10000, 10000, 200, 255, 85, 0, Particle::MOSQUITO);
+	slurp.addParticle(Bzzzt);
+	slurp.drawParticle(Bzzzt);
+
+	int iterations = 500;
+
+	showcursor(false);
+	for (int i = 0; i < iterations; ++i) {
+                clearscreen();
+                zapUpdate(slurp);
+                for (Cell *currNode = slurp.get_head(); currNode; currNode = currNode->getNext()) {
+                    slurp.drawParticle(currNode->particle); // Use the new public method
+                }
+                usleep(100000); // Sleep for 100 milliseconds
+            }
+			clearscreen();
+			show_cursor(true);
+         }
 
 }
 
-void createZap(Cell* currNode){
+void createZap(System& slurp, Cell* currNode){
 	for (int i = 0; i < 10; ++i) {
 		double angle = (rand() % 360) * (numbers::pi / 180.0);
 		double speed = 1.5;
 		double new_dx = speed * cos(angle);
 		double new_dy = speed * sin(angle);
 		Particle newParticle(currNode->particle.get_x(), currNode->particle.get_y(), new_dx, new_dy, INT_MAX, currNode->particle.get_r(), currNode->particle.get_g(), currNode->particle.get_b(), Particle::STREAMER);
-		addParticle(newParticle);
+		slurp.addParticle(newParticle);
 	}
 }
 
-void zapUpdate() { // Modified sysUpdate to avoid Merge conflicts and call conflicts
-	Cell *currNode = head;
+void zapUpdate(System& slurp) { // Modified sysUpdate to avoid Merge conflicts and call conflicts
+	Cell *currNode = slurp.get_head();
 	while (currNode) {
 		Cell *nextNode = currNode->getNext(); // Save the next node before potentially deleting the current node
 		currNode->particle.Physics(); // Physics update
@@ -75,37 +100,37 @@ void zapUpdate() { // Modified sysUpdate to avoid Merge conflicts and call confl
 		int zapper_y = (rows - zapperHeight) / 2;
 
 		// Check for culling conditions
-		if ((x >= zapper_x && x <= zapper_x + zapperWidth) && (y >= zapper_y && y <= zapper_y + zapperHeight){
-				createZap(currNode);
+		if ((x >= zapper_x && x <= zapper_x + zapperWidth) && (y >= zapper_y && y <= zapper_y + zapperHeight)){
+			createZap(slurp, currNode);
 
-				if (currNode == head) head = currNode->next;
-				if (currNode == tail) tail = currNode->prev;
-				delete currNode;
-				partCount--;
-				}
+			if (currNode == slurp.get_head()) slurp.set_head(currNode->getNext());
+			if (currNode == slurp.get_tail()) slurp.set_tail(currNode->getPrev());
+			delete currNode;
+			slurp.set_partCount(slurp.get_partCount() - 1);
+		}
 
-				// Explosion logic for FIREWORK particles
-				else if (currNode->particle.get_type() == Particle::FIREWORK && currNode->particle.get_lifetime() == 0) {
-				// Create explosion particles
-				createZap(currNode);
+		// Explosion logic for FIREWORK particles
+		else if (currNode->particle.get_type() == Particle::FIREWORK && currNode->particle.get_lifetime() == 0) {
+			// Create explosion particles
+			createZap(slurp, currNode);
 
-				if (currNode == head) head = currNode->next;
-				if (currNode == tail) tail = currNode->prev;
-				delete currNode;
-				partCount--;
-				}
+			if (currNode == slurp.get_head()) slurp.set_head(currNode->getNext());
+			if (currNode == slurp.get_tail()) slurp.set_tail(currNode->getPrev());
+			delete currNode;
+			slurp.set_partCount(slurp.get_partCount() - 1);
+		}
 
-				else if ((x < 0 or x > scrnWidth) or (y < 0 or y > scrnHeight) or currNode->particle.get_lifetime() == 0) {
-					if (currNode == head) head = currNode->next;
-					if (currNode == tail) tail = currNode->prev;
-					delete currNode;
-					partCount--;
-				}
+		else if ((x < 0 || x > scrnWidth) || (y < 0 || y > scrnHeight) || currNode->particle.get_lifetime() == 0) {
+			if (currNode == slurp.get_head()) slurp.set_head(currNode->getNext());
+			if (currNode == slurp.get_tail()) slurp.set_tail(currNode->getPrev());
+			delete currNode;
+			slurp.set_partCount(slurp.get_partCount() - 1);
+		}
 
-				// Remove the current node from the list and delete it
+		// Remove the current node from the list and delete it
 		else {
-			drawParticle(currNode->particle); // Draw the particle if it's not culled
+			slurp.drawParticle(currNode->particle); // Draw the particle if it's not culled
 		}
 		currNode = nextNode; // Move to the next node
 	}
-}*/
+}
