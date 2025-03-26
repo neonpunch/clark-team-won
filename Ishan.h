@@ -19,8 +19,8 @@ void makeFirework(System& sys) {
 	int blue = 0;
 //	int sw = 0;
 //	int sh = 0;
-int maxx = sys.getWidth();
-int maxy = sys.getHeight();
+int maxx = sys.get_scrnWidth();
+int maxy = sys.get_scrnHeight();
 	cout << "enter the x position" << endl;
 	cin >> xIn;
 	cout << "enter the y position" << endl;
@@ -37,7 +37,7 @@ int maxy = sys.getHeight();
 	if (xIn < 0) xIn = 0;
 	if (xIn >= maxx) xIn = maxx - 1;
 	if (yIn < 0) yIn = 0;
-	if yIn >= maxy) yIn = maxY - 1;
+	if (yIn >= maxy) yIn = maxy - 1;
 	for (int i = 0; i < 100; ++i) {
 	  double dxIn = (rand() % 200 - 100) / static_cast<double>(50);
 	  double dyIn = (rand() % 200 - 100) / static_cast<double>(50);

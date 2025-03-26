@@ -59,6 +59,14 @@ public:
         return partCount;
     }
 
+	double get_FPS() const {
+		return FPS; 
+	}
+	
+	void set_FPS(double new_FPS) {
+		FPS = new_FPS;
+	}
+
 	int get_scrnWidth() const {
 		return scrnWidth;
 	}

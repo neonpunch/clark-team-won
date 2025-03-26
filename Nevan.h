@@ -15,6 +15,8 @@
 // It vanished
 
 void bug_zapper(System& slurp){
+
+void bug_zapper(){
 	const auto [rows, cols] = get_terminal_size();
 	int zapperWidth = cols / 8;
 	int zapperHeight = rows / 2;

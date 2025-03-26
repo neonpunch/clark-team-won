@@ -95,18 +95,21 @@ int main () {
 			show_cursor(true);
          }
 		else if (choice == 6) {
-			//call parker project
+			clearscreen();
+			GasClouds(Sys);
 		}
 		else if (choice == 7) {
 			//call nevan project
 		}
 		else if (choice == 8) {
+			clearscreen();
 			IA project;
 			project.makeFirework(Sys);
 			project.sim(Sys);
 		}
 		else if (choice == 9) {
-			BitBomb(Sys);
+			clearscreen();
+			BigBayBoom(Sys);
 		}
         // Quit
         else if (choice == 0) {
