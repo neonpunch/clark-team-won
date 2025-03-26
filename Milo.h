@@ -64,7 +64,6 @@ void BitBomb(System& system) {
     clearscreen();
 
     const auto [ROWS, COLS] = get_terminal_size();
-    cout << "Terminal size: " << ROWS << " rows, " << COLS << " columns" << endl;
 
     for (int y = 0; y < ROWS; y++) {
         for (int x = 0; x < COLS; x++) {
