@@ -49,18 +49,13 @@ void BitBomb(System& system) {
     clearscreen();
 
     const auto [ROWS, COLS] = get_terminal_size();
-<<<<<<< HEAD
     
-	auto last_time = high_resolution_clock::now();
-=======
-    cout << "Terminal size: " << ROWS << " rows, " << COLS << " columns" << endl;
-
     // Create wall of particles
     for (int y = 0; y < ROWS; y++) {
         for (int x = 0; x < COLS; x++) {
             Particle wallParticle(x, y, 0, 0, INT_MAX, 100, 100, 100, Particle::STREAMER);
             system.addParticle(wallParticle);
-            system.draw_particle(wallParticle);
+            system.drawParticle(wallParticle);
         }
     }
 
@@ -71,15 +66,14 @@ void BitBomb(System& system) {
     int destroyedCount = 0;
     int totalParticles = ROWS * COLS;
     int halfParticles = totalParticles / 2;
->>>>>>> refs/remotes/origin/main
 
     while (true) {
         auto cur_time = high_resolution_clock::now();
         duration<double> diff = cur_time - last_time;
         delta_t = diff.count();
         movecursor(ROWS, 0);
-     //   setbgcolor(0, 0, 0);
-//        cout << "FPS: " << 1/delta_t << "                  " << endl;
+        setbgcolor(0, 0, 0);
+        cout << "FPS: " << 1/delta_t << "                  " << endl;
         cout << "Q to quit" << endl;
         last_time = cur_time;
 
@@ -99,10 +93,10 @@ void BitBomb(System& system) {
                 double new_dy = speed * sin(angle);
                 Particle finalExplosionParticle(COLS / 2, ROWS / 2, new_dx, new_dy, INT_MAX, rand() % 256, rand() % 256, rand() % 256, Particle::FIREWORK);
                 system.addParticle(finalExplosionParticle);
-                system.draw_particle(finalExplosionParticle);
+                system.drawParticle(finalExplosionParticle);
             }
             for (Particle& artParticle : catArtParticles) {
-                system.draw_particle(artParticle);
+                system.drawParticle(artParticle);
             }
             break;
         }
@@ -113,12 +107,12 @@ void BitBomb(System& system) {
             int firework_y = ROWS - 1; // Start from the bottom of the screen
             Particle explosiveParticle(firework_x, firework_y, 0, -1, 100, 255, 0, 0, Particle::FIREWORK); // Move upwards
             system.addParticle(explosiveParticle);
-            system.draw_particle(explosiveParticle);
+            system.drawParticle(explosiveParticle);
 
             // Move the firework up and then explode
             while (explosiveParticle.get_y() > 0) {
                 explosiveParticle.set_y(explosiveParticle.get_y() - 1);
-                system.draw_particle(explosiveParticle);
+                system.drawParticle(explosiveParticle);
                 usleep(50000); // Sleep for 50 milliseconds
             }
 
@@ -127,7 +121,7 @@ void BitBomb(System& system) {
                 Particle tempParticle = curr->getParticle();
                 if (tempParticle.get_type() == Particle::STREAMER && sqrt(pow(tempParticle.get_x() - firework_x, 2) + pow(tempParticle.get_y() - explosiveParticle.get_y(), 2)) < 10.0) {
                     tempParticle.set_lifetime(0);
-                    system.draw_particle(tempParticle);
+                    system.drawParticle(tempParticle);
                     destroyedCount++;
                 }
             }
