@@ -97,19 +97,24 @@ int main () {
 		else if (choice == 6) {
 			clearscreen();
 			GasClouds(Sys);
+			clearscreen();
 		}
 		else if (choice == 7) {
-			//call nevan project
+			clearscreen();
+			bug_zapper(Sys);
+			clearscreen();
 		}
 		else if (choice == 8) {
 			clearscreen();
 			IA project;
 			project.makeFirework(Sys);
 			project.sim(Sys);
+			clearscreen();
 		}
 		else if (choice == 9) {
 			clearscreen();
 			BigBayBoom(Sys);
+			clearscreen();
 		}
         // Quit
         else if (choice == 0) {
