@@ -15,8 +15,6 @@
 // It vanished
 
 void bug_zapper(System& slurp){
-
-void bug_zapper(){
 	const auto [rows, cols] = get_terminal_size();
 	int zapperWidth = cols / 8;
 	int zapperHeight = rows / 2;
@@ -70,7 +68,6 @@ void bug_zapper(){
 			clearscreen();
 			show_cursor(true);
          }
-
 }
 
 void createZap(System& slurp, Cell* currNode){
@@ -120,7 +117,7 @@ void zapUpdate(System& slurp) { // Modified sysUpdate to avoid Merge conflicts a
 			slurp.set_partCount(slurp.get_partCount() - 1);
 		}
 
-		else if ((x < 0 || x > scrnWidth) || (y < 0 || y > scrnHeight) || currNode->particle.get_lifetime() == 0) {
+		else if ((x < 0 || x > slurp.get_scrnWidth()) || (y < 0 || y > slurp.get_scrnHeight) || currNode->particle.get_lifetime() == 0) {
 			if (currNode == slurp.get_head()) slurp.set_head(currNode->getNext());
 			if (currNode == slurp.get_tail()) slurp.set_tail(currNode->getPrev());
 			delete currNode;
