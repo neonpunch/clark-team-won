@@ -14,6 +14,68 @@
 // But when the world needed smoke
 // It vanished
 
+void createZap(System& slurp, Cell* currNode){
+    for (int i = 0; i < 10; ++i) {
+        double angle = (rand() % 360) * (numbers::pi / 180.0);
+        double speed = 1.5;
+        double new_dx = speed * cos(angle);
+        double new_dy = speed * sin(angle);
+        Particle newParticle(currNode->particle.get_x(), currNode->particle.get_y(), new_dx, new_dy, INT_MAX, currNode->particle.get_r(), currNode->particle.get_g(), currNode->particle.get_b(), Particle::STREAMER);
+        slurp.addParticle(newParticle);
+    }
+}
+
+void zapUpdate(System& slurp) { // Modified sysUpdate to avoid Merge conflicts and call conflicts
+    Cell *currNode = slurp.get_head();
+    while (currNode) {
+        Cell *nextNode = currNode->getNext(); // Save the next node before potentially deleting the current node
+        currNode->particle.Physics(); // Physics update
+
+        double x = currNode->particle.get_x();
+        double y = currNode->particle.get_y();
+
+        const auto [rows, cols] = get_terminal_size();
+        int zapperWidth = cols / 8;
+        int zapperHeight = rows / 2;
+        int zapper_x = (cols - zapperWidth) / 2;
+        int zapper_y = (rows - zapperHeight) / 2;
+
+        // Check for culling conditions
+        if ((x >= zapper_x && x <= zapper_x + zapperWidth) && (y >= zapper_y && y <= zapper_y + zapperHeight)){
+            createZap(slurp, currNode);
+
+            if (currNode == slurp.get_head()) slurp.set_head(currNode->getNext());
+            if (currNode == slurp.get_tail()) slurp.set_tail(currNode->getPrev());
+            delete currNode;
+            slurp.set_partCount(slurp.get_partCount() - 1);
+        }
+
+        // Explosion logic for FIREWORK particles
+        else if (currNode->particle.get_type() == Particle::FIREWORK && currNode->particle.get_lifetime() == 0) {
+            // Create explosion particles
+            createZap(slurp, currNode);
+
+            if (currNode == slurp.get_head()) slurp.set_head(currNode->getNext());
+            if (currNode == slurp.get_tail()) slurp.set_tail(currNode->getPrev());
+            delete currNode;
+            slurp.set_partCount(slurp.get_partCount() - 1);
+        }
+
+        else if ((x < 0 || x > slurp.get_scrnWidth()) || (y < 0 || y > slurp.get_scrnHeight()) || currNode->particle.get_lifetime() == 0) {
+            if (currNode == slurp.get_head()) slurp.set_head(currNode->getNext());
+            if (currNode == slurp.get_tail()) slurp.set_tail(currNode->getPrev());
+            delete currNode;
+            slurp.set_partCount(slurp.get_partCount() - 1);
+        }
+
+        // Remove the current node from the list and delete it
+        else {
+            slurp.drawParticle(currNode->particle); // Draw the particle if it's not culled
+        }
+        currNode = nextNode; // Move to the next node
+    }
+}
+
 void bug_zapper(System& slurp){
 	const auto [rows, cols] = get_terminal_size();
 	int zapperWidth = cols / 8;
@@ -56,7 +118,7 @@ void bug_zapper(System& slurp){
 
 	int iterations = 500;
 
-	showcursor(false);
+	show_cursor(false);
 	for (int i = 0; i < iterations; ++i) {
                 clearscreen();
                 zapUpdate(slurp);
@@ -68,66 +130,6 @@ void bug_zapper(System& slurp){
 			clearscreen();
 			show_cursor(true);
          }
-}
 
-void createZap(System& slurp, Cell* currNode){
-	for (int i = 0; i < 10; ++i) {
-		double angle = (rand() % 360) * (numbers::pi / 180.0);
-		double speed = 1.5;
-		double new_dx = speed * cos(angle);
-		double new_dy = speed * sin(angle);
-		Particle newParticle(currNode->particle.get_x(), currNode->particle.get_y(), new_dx, new_dy, INT_MAX, currNode->particle.get_r(), currNode->particle.get_g(), currNode->particle.get_b(), Particle::STREAMER);
-		slurp.addParticle(newParticle);
-	}
-}
 
-void zapUpdate(System& slurp) { // Modified sysUpdate to avoid Merge conflicts and call conflicts
-	Cell *currNode = slurp.get_head();
-	while (currNode) {
-		Cell *nextNode = currNode->getNext(); // Save the next node before potentially deleting the current node
-		currNode->particle.Physics(); // Physics update
 
-		double x = currNode->particle.get_x();
-		double y = currNode->particle.get_y();
-
-		const auto [rows, cols] = get_terminal_size();
-		int zapperWidth = cols / 8;
-		int zapperHeight = rows / 2;
-		int zapper_x = (cols - zapperWidth) / 2;
-		int zapper_y = (rows - zapperHeight) / 2;
-
-		// Check for culling conditions
-		if ((x >= zapper_x && x <= zapper_x + zapperWidth) && (y >= zapper_y && y <= zapper_y + zapperHeight)){
-			createZap(slurp, currNode);
-
-			if (currNode == slurp.get_head()) slurp.set_head(currNode->getNext());
-			if (currNode == slurp.get_tail()) slurp.set_tail(currNode->getPrev());
-			delete currNode;
-			slurp.set_partCount(slurp.get_partCount() - 1);
-		}
-
-		// Explosion logic for FIREWORK particles
-		else if (currNode->particle.get_type() == Particle::FIREWORK && currNode->particle.get_lifetime() == 0) {
-			// Create explosion particles
-			createZap(slurp, currNode);
-
-			if (currNode == slurp.get_head()) slurp.set_head(currNode->getNext());
-			if (currNode == slurp.get_tail()) slurp.set_tail(currNode->getPrev());
-			delete currNode;
-			slurp.set_partCount(slurp.get_partCount() - 1);
-		}
-
-		else if ((x < 0 || x > slurp.get_scrnWidth()) || (y < 0 || y > slurp.get_scrnHeight) || currNode->particle.get_lifetime() == 0) {
-			if (currNode == slurp.get_head()) slurp.set_head(currNode->getNext());
-			if (currNode == slurp.get_tail()) slurp.set_tail(currNode->getPrev());
-			delete currNode;
-			slurp.set_partCount(slurp.get_partCount() - 1);
-		}
-
-		// Remove the current node from the list and delete it
-		else {
-			slurp.drawParticle(currNode->particle); // Draw the particle if it's not culled
-		}
-		currNode = nextNode; // Move to the next node
-	}
-}
