@@ -120,18 +120,14 @@ void BitBomb(System& system) {
             }
             break;
         }
-<<<<<<< HEAD
-=======
-
         // Draw the particles on the screen
         clearscreen();
         for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->getNext()) {
-            Particle& p = curr->getParticle();
-            movecursor(p.get_y(), p.get_x());
-            setbgcolor(p.get_r(), p.get_g(), p.get_b());
+            Particle temp = curr->getParticle();
+            movecursor(temp.get_y(), temp.get_x());
+            setbgcolor(temp.get_r(), temp.get_g(), temp.get_b());
             cout << " ";
         }
         usleep(100000); // Sleep for 100 milliseconds
->>>>>>> refs/remotes/origin/main
     }
 }
