@@ -27,18 +27,6 @@ void bailout() {
     int booya = system("clear");
 }
 
-// Create the artwork of the cat's head
-vector<Particle> create_cat_art(int rows, int cols) {
-    vector<Particle> catArtParticles;
-    for (int y = rows / 2 - 5; y < rows / 2 + 5; y++) {
-        for (int x = cols / 2 - 5; x < cols / 2 + 5; x++) {
-            Particle artParticle(x, y, 0, 0, INT_MAX, 255, 165, 0, Particle::BALLISTIC);
-            catArtParticles.push_back(artParticle);
-        }
-    }
-    return catArtParticles;
-}
-
 void BitBomb(System& system) {
     atexit(bailout);
     show_cursor(false);
@@ -49,13 +37,6 @@ void BitBomb(System& system) {
 
     const auto [ROWS, COLS] = get_terminal_size();
     
-    // Create cat artwork
-    vector<Particle> catArtParticles = create_cat_art(ROWS, COLS);
-    for (Particle& artParticle : catArtParticles) {
-        system.addParticle(artParticle);
-        system.drawParticle(artParticle);
-    }
-
     auto last_time = high_resolution_clock::now();
 
     while (true) {
