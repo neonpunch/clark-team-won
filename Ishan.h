@@ -41,19 +41,30 @@ int maxy = sys.get_scrnHeight();
 	for (int i = 0; i < 100; ++i) {
 	  double dxIn = (rand() % 200 - 100) / static_cast<double>(50);
 	  double dyIn = (rand() % 200 - 100) / static_cast<double>(50);
-	 	red = rand() % 256; // randomizes the color, for a nice cool effect
-		blue = rand() % 256;
-		green = rand() % 256;
+	red = rand()% 256;
+	green = rand() % 256;
+	blue = rand() % 256;
+	
 	  Particle fire(xIn,yIn,dxIn,dyIn,lifetimeIn,red,green,blue,Particle::FIREWORK);
  	  sys.addParticle(fire);	
 	}
 }
 void sim(System& sys) {
 	show_cursor(false);
+	double red = 0; 
+	double green = 0;
+	double blue = 0;
 	for (int i = 0; i < 60; ++i) {
 	  clearscreen();
 sys.sysUpdate();
 	for (Cell* curr = sys.get_head(); curr; curr = curr->getNext()) {
+	red = rand() % 256;
+	green = rand() % 256;
+	blue = rand() % 256;
+
+	curr->particle.set_r(red);
+	curr->particle.set_g(green);
+	curr->particle.set_b(blue);
 	  sys.drawParticle(curr->particle);
 	  }
 		usleep(100000);
