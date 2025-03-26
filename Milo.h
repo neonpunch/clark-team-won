@@ -38,7 +38,6 @@ void mouse_handler(int row, int col) {
     click_row = row;
     click_col = col;
     mouse_down = true;
-    cout << "Mouse down at (" << click_col << ", " << click_row << ")" << endl;
 }
 
 // Mouse up handler
@@ -46,7 +45,6 @@ void mouse_handler2(int row, int col) {
     click_row = row;
     click_col = col;
     mouse_down = false;
-    cout << "Mouse up at (" << click_col << ", " << click_row << ")" << endl;
 }
 
 // Function to draw particles
@@ -69,6 +67,7 @@ void BitBomb(System& system) {
 
     const auto [ROWS, COLS] = get_terminal_size();
 
+<<<<<<< HEAD
     for (int y = 0; y < ROWS; y++) {
         for (int x = 0; x < COLS; x++) {
             Particle wallParticle(x, y, 0, 0, INT_MAX, 0, 0, 255, Particle::STREAMER);
@@ -85,6 +84,8 @@ void BitBomb(System& system) {
         }
     }
 
+=======
+>>>>>>> refs/remotes/origin/main
     auto last_time = high_resolution_clock::now();
 
     while (true) {
@@ -108,13 +109,14 @@ void BitBomb(System& system) {
             mouse_down = false;
             if (click_row >= ROWS or click_col >= COLS or click_row < 0 or click_col < 0) continue;
             cout << "Mouse click at (" << click_col << ", " << click_row << ")" << endl;
-            Particle explosiveParticle(click_col, click_row, 0, 0, 100, 255, 0, 0, Particle::FIREWORK);
-            system.addParticle(explosiveParticle);
-            draw_particle(explosiveParticle);
+            Particle drawParticle(click_col, click_row, 0, 0, INT_MAX, rand() % 256, rand() % 256, rand() % 256, Particle::BALLISTIC);
+            system.addParticle(drawParticle);
+            draw_particle(drawParticle);
         }
 
         system.sysUpdate();
 
+<<<<<<< HEAD
         for (Cell* curr = system.get_head(); curr != nullptr; curr = curr->getNext()) {
             Particle tempParticle = curr->getParticle();
             if (tempParticle.get_type() == Particle::FIREWORK && tempParticle.get_lifetime() == 0) {
@@ -163,6 +165,8 @@ void BitBomb(System& system) {
             }
             break;
         }
+=======
+>>>>>>> refs/remotes/origin/main
         usleep(100000); // Sleep for 100 milliseconds
     }
 }
